@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/section.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="title-container">
+            <div class="title-content">
+                <div class="info-container">
+                    <p class="section-name">Секция футбола "Зенит"</p>
+                    <p class="desc">Добро пожаловать в футбольную секцию Зенит!
+                        Разгадайте тайны игры, освоив основы с нашими практическими занятиями.
+                        Почувствуйте страсть к футболу, в нашей секции.</p>
+                </div>
+                <div class="entry-container">
+                    <div class="card-user-info">
+                        <div class="stars">
+                            <div class="rating">
+                                {% for i in 1..5 %}
+                                    {% if i <= 5 %}
+                                        <span class="star-filled">★</span>
+                                    {% else %}
+                                        <span class="star-empty">☆</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="int-rating">5/5</div>
+                        </div>
+                        <span class="count-reviews">10 отзывов</span>
+                        <p class="section-price">1500 Руб./Мес.</p>
+                    </div>
+                    <div class="entry-stage">
+                        <button class="comparison">
+                            <img src="{{ asset('images/Scales.svg') }}" alt="scale_img">
+                            В сравнение
+                        </button>
+                        <button class="entry">
+                            Записаться
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="sticky-menu">
+                <a class="menu-button" href="#section-description" id="desc-button">Описание</a>
+                <a class="menu-button" href="#section-reviews" id="reviews-button">Отзывы</a>
+                <div class="highlight"></div>
+            </div>
+
+            <hr style="border: 1px solid black; margin-top: 80px;">
+            <div id="section-description" class="section-description">
+                <div class="forWh0-format">
+                    <div class="accordion">
+                        <div class="accordion-item desc-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button desc-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                    Для кого
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                <div class="accordion-body desc-text">
+                                    Наши тренировки по футболу - идеальное начало для тех,
+                                    кто мечтает войти в мир футбольной игры.
+                                    "Старт в мире футбола" подходит для всех,
+                                    кто стремится к развитию в этом увлекательном виде спорта
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-item desc-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button desc-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                    Формат
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    Деятельность нашей секции предполагает тренировки три раза в неделю,
+                                    обеспечивая вам доступ к интенсивным урокам и регулярным тренировкам на поле.
+                                    Наш график создан для вашего удобства, чтобы вы могли наслаждаться процессом
+                                    обучения.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div class="accordion">
+                        <div class="accordion-item map-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button map-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseThree">
+                                    Местоположение секции на карте
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body map-body">
+                                    <div id="map">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.439086486507!2d44.97479199407662!3d53.22790490071747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4141016f04aa4d49%3A0xb42f4bb23eb871b1!2z0YPQuy4g0KLQuNGC0L7QstCwLCAz0JAsINCf0LXQvdC30LAsINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQuy4sINCg0L7RgdGB0LjRjywgNDQwMDI4!5e0!3m2!1sru!2snl!4v1715694151137!5m2!1sru!2snl"
+                                                width="1500px" height="600" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="section-reviews" class="section-reviews">
+                <div class="reviews-title">
+                    <p>Отзывы о секции "Зенит"</p>
+                    <a href="#">Написать отзыв</a>
+                </div>
+                <div class="reviews-body">
+                    {% for j in 1..5 %}
+                        <div class="reviews-card">
+                            <div class="stage-1">
+                                <div class="reviews-info">
+                                    <p class="user-name">Анатолий Мурнаев</p>
+                                    <p class="createdAt" style="color: #8F8F8F;">20.04.2024</p>
+                                </div>
+                                <div class="stars">
+                                    <div class="rating">
+                                        {% for i in 1..5 %}
+                                            {% if i <= 5 %}
+                                                <span class="star-filled">★</span>
+                                            {% else %}
+                                                <span class="star-empty">☆</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="text">5/5</div>
+                                </div>
+                            </div>
+                            <div class="body">
+                                <p class="reviews-header">Все очень понравилось!</p>
+                                <span class="text-review">Присоединившись к футбольной секции Зенита, я нашел не просто команду, а настоящую футбольную семью. Профессиональные тренеры, интенсивные тренировки и поддержка сочувствующих товарищей создают неповторимую атмосферу. Здесь не просто играют в футбол, здесь живут им, и я горжусь быть частью этой захватывающей истории успеха.</span>
+                                <div class="positive-negative">
+                                    <div class="positive">
+                                        <span><img src="{{ asset('images/plus.svg') }}" alt="plus">Плюсы</span>
+                                        <div class="item">
+                                            <span>•</span>
+                                            Профессиональные тренеры
+                                        </div>
+                                    </div>
+                                    <div class="negative">
+                                        <span><img src="{{ asset('images/minus.svg') }}" alt="minus">Минусы</span>
+                                        <div class="item">
+                                            <span>•</span>
+                                            Только одно поле на котором могут не поместиться
+                                            все ученики
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="send-review">
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}

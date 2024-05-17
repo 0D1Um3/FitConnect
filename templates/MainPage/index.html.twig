@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/blog.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="main-page">
+        <div class="title-container">
+            <div class="title-content">
+                <div class="desc">
+                    <p>Все секции вашего города<br> в одном месте</p>
+                    <p class="slogan">Добавить спорт в свою жизнь - это просто.<br>
+                        Увеличь физическую активность<br>
+                        легко и увлекательно</p>
+                    <a href="#" class="button">Подробнее</a>
+                </div>
+                <img src="{{ asset('images/happy-man.svg') }}" alt="happy-man-exercising">
+            </div>
+        </div>
+        <div class="popular-container">
+            <div class="popular-content">
+                <p class="title"><span style="color: #018578;">Популярные</span> секции</p>
+                <div class="popular-section">
+                    <div class="card">
+                        <a href="#">
+                            <img src="{{ asset('images/footbal.jpg') }}" alt="popular-section-img">
+                            <div class="card-overlay">
+                                <p class="caption">Футбол</p>
+                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="#">
+                            <img src="{{ asset('images/vol.jpg') }}" alt="popular-section-img">
+                            <div class="card-overlay">
+                                <p class="caption">Волейбол</p>
+                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="#">
+                            <img src="{{ asset('images/pinpong.jpg') }}" alt="popular-section-img">
+                            <div class="card-overlay">
+                                <p class="caption">Настольный тенис</p>
+                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="all-for-you">
+            <div class="container">
+                <div class="all-for-you-positive">
+                    <p class="title-all-for-you">Все для вас</p>
+                    <div class="positive">
+                        <img src="{{ asset('images/Ok.svg') }}" alt="Ok-image">
+                        <p>Всегда актуальные данные о школах<br>
+                            и обучающих программах</p>
+                    </div>
+                    <div class="positive">
+                        <img src="{{ asset('images/Ok.svg') }}" alt="Ok-image">
+                        <p>Только проверенные отзывы<br>
+                            реальных учеников.</p>
+                    </div>
+                    <div class="positive">
+                        <img src="{{ asset('images/Ok.svg') }}" alt="Ok-image">
+                        <p>Только надежные секции и школы<br>
+                            с высокой репутацией.</p>
+                    </div>
+                    <a href="#" class="button">Перейти в каталог</a>
+                </div>
+                <img src="{{ asset('images/all-for-you.svg') }}" alt="all-for-you-image" class="all-for-you-image">
+            </div>
+        </div>
+        {% include ('blog-article.html.twig') %}
+
+
+    </section>
+{% endblock %}

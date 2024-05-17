@@ -1,0 +1,101 @@
+.blog-title{
+    background: linear-gradient(-45deg, #FBF4D8, #E7F7ED);
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.title-content{
+    margin: 0 10%;
+}
+
+.title-content p{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.title-content span{
+    font-size: 24px;
+}
+
+/*Карточка статьи*/
+
+.blog-container{
+    margin: 80px 0 114px 0;
+}
+
+.blog-row{
+    margin: 0 10%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.card-container{
+    padding: 0;
+    flex: 0 0 24%
+}
+
+.card-article {
+    width: 100%;
+    height: 550px;
+    display: inline-block;
+    border-radius: 30px;
+}
+
+.card-article a {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.card-article img {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.card-article-overlay {
+    background-color: rgba(0, 0, 0, 0.45);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+}
+
+.article-name {
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+.read-full {
+    font-size: 16px;
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.read-full img{
+    width: 20px;
+    height: 20px;
+}
+
+.read-full span{
+    margin-left: 5px;
+}
+
+.card-article a,
+.read-full:hover {
+    color: white;
+    text-decoration: underline;
+}

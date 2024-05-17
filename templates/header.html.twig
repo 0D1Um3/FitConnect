@@ -1,0 +1,38 @@
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+{% endblock %}
+
+<header>
+    <div class="wrapper site-header__wrapper">
+        <a href="/" class="brand"><img src="{{ asset('images/Logo.svg') }}" alt="brand"/></a>
+        <nav class="nav">
+            <a href="#">Каталог секций</a>
+            <a href="#">Блог</a>
+            <a href="#">Пенза</a>
+        </nav>
+        <a href="#" class="scale"><img src="{{ asset('images/Scales.svg') }}" alt="Compare"></a>
+        {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="log-in">Выйти</a>
+        {% else %}
+        <button id="open-login-modal" class="log-in">Войти</button>
+        {% endif %}
+
+    </div>
+</header>
+
+<div class="modal fade popUp" id="auth-modal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authModalLabel">Авторизация</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-content">
+                <!-- Содержимое будет загружаться сюда -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button id="scrollTopBtn" class="scroll-top-btn" title="Наверх">&uarr;</button>

@@ -1,0 +1,184 @@
+.catalog-container {
+    margin: 80px 10% 0 10%;
+    overflow: hidden;
+}
+
+.type-sport-title {
+    font-size: 40px;
+}
+
+.catalog-content {
+    display: flex;
+}
+
+/*Фильтры и поиск*/
+
+.filter input {
+    border-radius: 10px;
+    width: 262px;
+    height: 40px;
+}
+
+.filter-title {
+    border: 0;
+}
+
+.filter-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-element {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.radio-element span {
+    margin-left: 8px;
+}
+
+.radio-element input[type="radio"] {
+    appearance: none; /* Убираем стандартный стиль */
+    -webkit-appearance: none; /* Для поддержки веб-кит браузеров */
+    -moz-appearance: none; /* Для поддержки Firefox */
+    width: 16px; /* Устанавливаем желаемую ширину */
+    height: 16px; /* Устанавливаем желаемую высоту */
+    border: 2px solid #616160; /* Устанавливаем цвет рамки */
+    border-radius: 50%; /* Делаем круглый */
+    outline: black; /* Убираем обводку */
+    margin-right: 5px; /* Отступ справа */
+}
+
+/* Для отображения состояния checked */
+.radio-element input[type="radio"]:checked {
+    background-color: #616160; /* Задаем цвет фона */
+}
+
+.filter {
+    flex: 0 0;
+}
+
+.filter-body .radio-element input {
+    width: 16px;
+    height: 16px;
+}
+
+/*Список карточек*/
+
+.content {
+    margin-left: auto;
+}
+
+.section-card {
+    border: 1px solid #A8A8A8;
+    border-radius: 10px;
+    width: 1100px;
+    margin-bottom: 30px;
+}
+
+.wrap{
+    padding: 3%;
+}
+
+.stage-1 {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+}
+
+.section-link{
+    text-decoration: none;
+    color: black;
+}
+
+/*Адрес и рейтинг*/
+
+.stage-2 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.address, .star-rate, .count-reviews {
+    margin-right: 10px; /* добавляем небольшой отступ между элементами */
+}
+
+.star-filled {
+    color: #ffdd02;
+    width: 20px;
+}
+
+.star-empty {
+    color: #424242;
+}
+
+.text {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.count-reviews {
+    font-size: 12px;
+    color: #707070;
+}
+
+/*Формат и особенности*/
+
+.stage-3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 45px;
+}
+
+
+.stage-3 .base-left, .stage-3 .base-right {
+    flex-grow: 1; /* Равномерное распределение пространства */
+    flex-basis: 0; /* Обнуляем базовый размер */
+    overflow-wrap: break-word; /* Перенос слов */
+}
+
+.stage-3 .base-left {
+    margin-right: 10%; /* Увеличиваем правый отступ у .base-left */
+}
+
+.stage-3 .base-right {
+    margin-left: 10%; /* Увеличиваем левый отступ у .base-right */
+}
+
+/*Кнопка записаться*/
+
+.stage-4{
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid black;
+    padding: 3%;
+    align-items: center;
+}
+
+.entries-button{
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    width: 185px;
+    height: 40px;
+    margin-left: 20px;
+}
+
+.comparison{
+    border: none;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+}
+
+.comparison img{
+    width: 30px;
+    height: 30px;
+}
+

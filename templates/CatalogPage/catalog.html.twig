@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/catalog.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/blog.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="catalog-container">
+            <p class="type-sport-title">
+                Футбол
+            </p>
+            <div class="catalog-content">
+                <div class="filter">
+                    <input type="search" placeholder="Поиск..." name="btn-search" style="padding-left: 10px">
+                    <div class="accordion">
+                        <div class="accordion-item filter-title">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                    Цена
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                <div class="accordion-body filter-body">
+                                    <label class="radio-element">
+                                        <input type="radio" name='price' value="all-sections" checked>
+                                        <span>Все курсы</span>
+                                    </label>
+                                    <label class="radio-element">
+                                        <input type="radio" name='price' value="free">
+                                        <span>Бесплатные</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    {% for i in 1..5 %}
+                        <div class="section-card">
+                            <div class="wrap">
+                                <a href="#" class="section-link">
+                                    <div class="stage-1">
+                                        <div class="base-left">
+                                        <span class="section-name">
+                                            Зенит
+                                        </span>
+                                        </div>
+                                        <div class="base-right ms-auto">
+                                        <span class="price">
+                                            1500 Руб./Мес.
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="stage-2">
+                                        <span class="address">г.Пенза, ул. Пушкина, д. Колотушкина</span>
+                                        <div class="star-rate d-flex">
+                                            <div class="stars">
+                                                <div class="rating">
+                                                    {% for i in 1..5 %}
+                                                        {% if i <= 5 %}
+                                                            <span class="star-filled">★</span>
+                                                        {% else %}
+                                                            <span class="star-empty">☆</span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="text">5/5</div>
+                                        </div>
+                                        <span class="count-reviews">10 отзывов</span>
+                                    </div>
+                                    <div class="stage-3">
+                                        <div class="base-left">
+                                            <strong>Формат:</strong> Изучение теории и практика на задачах, приближённых
+                                            к
+                                            реальным, обратная связь от курирующего эксперта, защита итогового проекта.
+                                        </div>
+                                        <div class="base-right">
+                                            <strong>Особенности:</strong> Обучение на практике онлайн в удобное время.
+                                            Закрытые
+                                            вебинары и практические задания на основе реальных кейсов. Готовый план по
+                                            интеграции аналитики в управление бизнесом по окончании курса. Преподаватели
+                                            -
+                                            эксперты в сфере аналитики с большим опытом. Возможность оплатить курс в
+                                            рассрочку.
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="stage-4">
+                                <div class="buttons">
+                                    <button class="comparison"><img src="{{ asset('images/Scales.svg') }}"
+                                                                    alt="scale_img">
+                                    </button>
+                                    <button class="entries-button">Записаться</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% include ('blog-article.html.twig') %}
+    </section>
+{% endblock %}

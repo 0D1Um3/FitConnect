@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/blogPage.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="blog-title">
+            <div class="title-content">
+                <p>Блог</p>
+                <span>
+                В блоге мы делимся полезной информацией о пользе спорта и его влиянии на жизнь,
+                обозреваем интересные события из мира спорта и многое другое
+                </span>
+            </div>
+        </div>
+        <div class="blog-container">
+            <div class="row blog-row">
+                {% for i in 1..10 %}
+                <div class="clo-md-6 col-sm-12 card-container">
+                    <div class="card-article">
+                        <a href="#" class="article-link">
+                            <img src="{{ asset('images/PP.png') }}" alt="article-img">
+                            <div class="card-article-overlay">
+                                <p class="data-create">23 апреля 2024</p>
+                                <p class="article-name">Все что вы не знали о
+                                    пользе правильного питания</p>
+                                <p href="#" class="read-full">
+                                    <img src="{{ asset('images/Arrow.svg') }}" alt="arrow">
+                                    <span>Читать полностью</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

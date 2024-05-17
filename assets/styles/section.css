@@ -1,0 +1,260 @@
+.title-container {
+    width: 100%;
+    height: 580px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(-45deg, #B8B8F7, #AEAEFC);
+}
+
+.title-content {
+    margin: 0 10%;
+    display: flex;
+    align-items: center;
+}
+
+.entry-container {
+    background-color: white;
+    width: 380px;
+    height: 450px;
+    border-radius: 10px;
+    margin-left: auto;
+}
+
+.card-user-info {
+    margin: 30px 30px 0 30px;
+}
+
+.star-filled {
+    color: #ffdd02;
+    font-size: 32px;
+}
+
+.star-empty {
+    color: #424242;
+    font-size: 32px;
+}
+
+.section-name {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.info-container {
+    width: 45%;
+}
+
+.desc {
+    font-size: 24px;
+}
+
+.stars {
+    display: flex;
+    align-items: center;
+}
+
+.int-rating {
+    margin-left: 10px;
+}
+
+.section-price {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 60px;
+}
+
+.entry-stage button {
+    border: none;
+    border-radius: 30px;
+}
+
+button img {
+    margin-right: 15px;
+}
+
+.entry-stage {
+    border-top: 2px solid #F2F4F5;
+    padding: 32px 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.entry {
+    margin-top: 30px;
+    color: white;
+    height: 60px;
+    background-color: black;
+}
+
+/*Плавающее меню*/
+
+.section-content {
+    margin: 0 10%;
+}
+
+.sticky-menu {
+    position: sticky;
+    top: 10px;
+    transition: all 0.15s ease-out;
+    margin-top: 80px;
+    width: 100%;
+    z-index: 100;
+    background-color: #F7F7F8;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    height: 71px;
+}
+
+.sticky-menu a {
+    width: 50%;
+    height: 90%;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
+    z-index: 100;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    border: none;
+    background-color: transparent;
+    margin: 5px;
+}
+
+/*Выделение кнопок*/
+.highlight {
+    position: absolute;
+    border-radius: 10px;
+    left: 7px;
+    width: 50%; /* Ширина подсветки (может быть адаптирована под ваш дизайн) */
+    height: 90%; /* Высота подсветки (может быть адаптирована под ваш дизайн) */
+    background-color: #fff; /* Цвет подсветки */
+    transition: transform 0.3s ease; /* Анимация при изменении transform */
+    transform: translateX(0); /* Изначальное положение подсветки */
+}
+
+.menu-button:hover + .highlight {
+    transform: translateX(98%); /* Изменение положения при наведении на кнопку */
+}
+
+/*Описание секции*/
+.section-description{
+    margin-top: 50px;
+}
+
+.forWh0-format{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+.desc-item{
+    border: none;
+    font-size: 20px;
+}
+
+.map-item{
+    border: none;
+}
+
+.map-button{
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.desc-button::after {
+    margin-left: auto; /* Отодвигаем стрелку к правому краю */
+    margin-right: 0; /* Устанавливаем правый отступ в 0 */
+}
+
+.desc-button{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.map-body{
+    display: flex;
+    justify-content: center;
+}
+
+.section-reviews{
+    margin-top: 80px;
+}
+
+.reviews-title{
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.reviews-title p{
+    font-size: 30px;
+    margin: 0;
+}
+
+.reviews-title a{
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    margin-left: auto;
+    text-decoration: none;
+    color: white;
+    border-radius: 30px;
+    width: 22%;
+    height: 55px;
+}
+
+.reviews-card{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 3%;
+    margin-bottom: 45px;
+}
+
+.reviews-info{
+    display: flex;
+    align-items: center;
+}
+
+.createdAt{
+    margin-left: auto;
+}
+
+.stars{
+    display: flex;
+}
+
+.stars .text{
+    margin-left: 10px;
+}
+
+.reviews-body{
+    margin-top: 50px;
+}
+
+.reviews-header{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.positive-negative{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+}
+
+.positive-negative span{
+    font-weight: bold;
+}
+
+.positive, .negative{
+    width: 49%;
+}
+
+.item{
+    margin-top: 10px;
+}

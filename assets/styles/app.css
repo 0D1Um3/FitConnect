@@ -1,0 +1,165 @@
+@font-face {
+    font-family: MyFont;
+    src: url('../font/GolosText.ttf');
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: MyFont, serif;
+}
+
+header a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+
+.log-in {
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    height: 50px;
+    width: 125px;
+    border-radius: 50px;
+    margin-left: 2%;
+    background-color: #d9d9d9;
+}
+
+.brand img {
+    width: 25%;
+}
+
+.nav {
+    margin-left: auto;
+}
+
+.scale {
+    margin-left: 75px;
+}
+
+header {
+    width: 100%;
+    margin: 25px 0 25px 0;
+}
+
+.site-header__wrapper {
+    margin: 0 10%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav a:not(:first-child) {
+    margin-left: 75px;
+}
+
+.footer-container{
+    display: grid;
+    margin: 80px 10% 100px 10%;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.footer-container p{
+    font-size: 14px;
+}
+
+.footer-container a{
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+footer .chapter{
+    display: flex;
+    flex-direction: column;
+}
+
+footer .chapter p{
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.footer-logo{
+    width: 220px;
+    height: 50px;
+}
+
+footer .chapter a{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+/*Стрелка Вверх*/
+
+.scroll-top-btn {
+    display: none; /* Скрыть кнопку "Вверх" изначально */
+    position: fixed;
+    bottom: 60px;
+    left: 20px;
+    z-index: 99;
+    font-size: 18px;
+    background-color: #2E2E30;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.scroll-top-btn:hover {
+    background-color: #545457;
+}
+
+/*Авторизация-Регистрация*/
+
+.popUp{
+    align-items: center;
+}
+
+#auth-modal .modal-content {
+    background-color: #fff; /* цвет фона модального окна */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.registration-body form div:not(:last-of-type){
+    display: flex;
+    flex-direction: column;
+}
+
+p button{
+    border: none;
+    background-color: transparent;
+    width: fit-content;
+}
+
+.registration-body form div input{
+    border-radius: 5px;
+}
+
+a.log-in{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: normal;
+}
+

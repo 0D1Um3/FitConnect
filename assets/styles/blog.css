@@ -1,0 +1,132 @@
+/*Блог*/
+
+.blog-container {
+    margin: 80px 10% 114px 10%;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.title a {
+    font-size: 16px;
+    color: #2E2E30;
+    text-decoration: underline;
+    margin-left: auto;
+}
+
+/*Слайдер*/
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Ширина контейнера слайдера */
+    height: 100%; /* Высота контейнера слайдера */
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 4%;
+    width: calc(33% * 3); /* Установим ширину слайдера для отображения только трех слайдов */
+}
+
+.slider-item {
+    flex: 0 0 30%; /* Ширина карточки */
+    height: 100%;
+    background-color: #eee; /* Цвет карточки */
+    border-radius: 30px;
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.slider-controls {
+    position: absolute;
+    bottom: 10px; /* Отступ от нижнего края */
+    left: 50%; /* Расположение по горизонтали */
+    transform: translateX(-50%);
+}
+
+.slider-dot {
+    width: 10px; /* Размер точки */
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc; /* Цвет точки */
+    display: inline-block;
+    margin: 0 5px; /* Отступ между точками */
+    cursor: pointer;
+}
+
+.slider-dot.active {
+    background-color: #42AD4D; /* Цвет активной точки */
+}
+
+/*Карточка статьи слайдера*/
+.article {
+    width: 100%;
+    height: 550px;
+    display: inline-block;
+    border-radius: 30px;
+}
+
+.article a {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.article img {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.article-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+}
+
+.article-name {
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+.read-full {
+    font-size: 16px;
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.read-full img{
+    width: 20px;
+    height: 20px;
+}
+
+.read-full span{
+    margin-left: 5px;
+}
+
+.article a,
+.read-full:hover {
+    color: white;
+    text-decoration: underline;
+}
