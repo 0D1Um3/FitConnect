@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
             ->add('phoneNumber', TelType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your phone number',
+                        'message' => 'Пожалуйста введите ваш номер телефона',
                     ]),
                 ],
             ])
@@ -58,8 +58,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [

@@ -3,24 +3,38 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+Use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        // Если запрос является AJAX, возвращаем JsonResponse
+        if ($request->isXmlHttpRequest()) {
+            $error = $authenticationUtils->getLastAuthenticationError();
+            $lastUsername = $authenticationUtils->getLastUsername();
 
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+            if ($error) {
+                $renderedForm = $this->renderView('security/login.html.twig', [
+                    'last_username' => $lastUsername,
+                    'error' => $error,
+                ]);
 
+                return new JsonResponse(['success' => false, 'form' => $renderedForm]);
+            }
+
+            return new JsonResponse(['success' => true]);
+        }
+
+        // Обычный ответ для не-AJAX запросов
         return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 

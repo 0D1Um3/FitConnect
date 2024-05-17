@@ -53,10 +53,15 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.text())
             .then(data => {
                 modalContent.innerHTML = data;
-                authModal.show(); // Отображаем модальное окно
-                document.body.style.overflow = "hidden"; // Запрещаем прокрутку фона при открытом модальном окне
+                authModal.show();
+                document.body.style.overflow = "hidden";
 
-                // Добавляем обработчик события после загрузки формы
+                const loginForm = document.getElementById("login-form");
+                loginForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    submitForm(loginForm, "/login");
+                });
+
                 const openRegistrModalBtn = document.getElementById("reg-link");
                 openRegistrModalBtn.addEventListener("click", function(event) {
                     event.preventDefault();
@@ -71,10 +76,15 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.text())
             .then(data => {
                 modalContent.innerHTML = data;
-                authModal.show(); // Отображаем модальное окно
-                document.body.style.overflow = "hidden"; // Запрещаем прокрутку фона при открытом модальном окне
+                authModal.show();
+                document.body.style.overflow = "hidden";
 
-                // Добавляем обработчик события после загрузки формы
+                const registerForm = document.querySelector("form[name='registration_form']");
+                registerForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    submitForm(registerForm, "/register");
+                });
+
                 const openLoginModalBtn = document.getElementById("login-link");
                 openLoginModalBtn.addEventListener("click", function(event) {
                     event.preventDefault();
@@ -84,27 +94,50 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Ошибка загрузки формы:', error));
     }
 
-    openLoginModalBtn.addEventListener("click", function(event) {
-        event.preventDefault();
-        loadLoginForm();
-    });
+    function submitForm(form, url) {
+        const formData = new FormData(form);
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                modalContent.innerHTML = data;
+                // Проверяем, если на странице снова форма, значит произошла ошибка валидации
+                if (modalContent.querySelector("form")) {
+                    authModal.show();
+                    document.body.style.overflow = "hidden";
+                } else {
+                    authModal.hide();
+                    document.body.style.overflow = "";
+                    location.reload(); // Перезагружаем страницу для обновления состояния
+                }
+            })
+            .catch(error => console.error('Ошибка отправки формы:', error));
+    }
 
-    // Закрытие модального окна при клике на кнопку закрытия или вне модального окна
+    if (openLoginModalBtn) {
+        openLoginModalBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            loadLoginForm();
+        });
+    }
     authModal._element.addEventListener("click", function(event) {
         if (event.target === authModal._element || event.target.classList.contains("btn-close")) {
-            authModal.hide(); // Скрываем модальное окно
-            document.body.style.overflow = ""; // Восстанавливаем прокрутку фона
+            authModal.hide();
+            document.body.style.overflow = "";
         }
     });
 
-    // Дополнительно можно добавить закрытие модального окна при нажатии на клавишу Escape
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape" && authModal._isShown) {
-            authModal.hide(); // Скрываем модальное окно
-            document.body.style.overflow = ""; // Восстанавливаем прокрутку фона
+            authModal.hide();
+            document.body.style.overflow = "";
         }
     });
 });
+
+
 
 
 

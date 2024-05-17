@@ -117,12 +117,9 @@ a {
     text-decoration: underline;
 }
 
-.container {
-    margin: 80px 10% 0 10%;
-    display: flex;
-}
 
-.container .all-for-you-image {
+
+.container-all-for-you .all-for-you-image {
     margin-left: auto;
 }
 
@@ -136,7 +133,7 @@ a {
     margin-left: 15px;
 }
 
-.container a {
+.container-all-for-you a {
     color: white;
     background-color: black;
     border-radius: 30px;
@@ -150,7 +147,10 @@ a {
 }
 
 .all-for-you {
-    margin-bottom: 80px;
+    margin: 80px 10%;
+}
+.container-all-for-you {
+    display: flex;
 }
 
 
