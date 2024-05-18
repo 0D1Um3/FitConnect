@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\Validator\PasswordStrength;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -41,7 +42,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('patronymic', TextType::class)
+            ->add('patronymic', TextType::class, [
+                'required' => false,
+            ])
             ->add('phoneNumber', TelType::class, [
                 'constraints' => [
                     new NotBlank([
@@ -65,14 +68,14 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Пожалуйста введите пароль',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'min' => 8,
+                        'minMessage' => 'Ваш пароль должен быть не короче {{ limit }} символов',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+//                    new PasswordStrength(),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,32 +1,41 @@
-<div class="modal-body">
-    <form method="post" id="login-form">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+{% extends 'base.html.twig' %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
-
-        <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, войдите в систему</h1>
-        <label for="username">Логин</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="login" required autofocus>
-        <label for="password">Пароль</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+{% block body %}
+    <div class="login-body">
+        <div class="form-header">
+            <h5 class="modal-title" id="authModalLabel">Авторизация</h5>
         </div>
+        <form method="post" id="login-form">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        <button class="btn btn-lg btn-dark" type="submit">Sign in</button>
-    </form>
-    <div>
-        <p>Нет аккаунта? <a href="#" id="reg-link">Зарегистрируйся</a></p>
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 font-weight-normal">Пожалуйста, войдите в систему</h1>
+            <label for="username">Логин</label>
+            <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
+                   autocomplete="login" required autofocus>
+            <label for="password">Пароль</label>
+            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password"
+                   required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Запомнить меня
+                </label>
+            </div>
+
+            <button class="auth" type="submit">Войти</button>
+        </form>
+        <div>
+            <p class="switch-page">Нет аккаунта? <a href="{{ path('app_register') }}">Зарегистрируйся</a></p>
+        </div>
     </div>
-</div>
+{% endblock %}

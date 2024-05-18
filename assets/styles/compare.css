@@ -1,0 +1,107 @@
+.compare-title{
+    background: linear-gradient(-45deg, #FBF4D8, #E7F7ED);
+    width: 100%;
+    height: 350px;
+    display: flex;
+    align-items: center;
+}
+
+.title-content{
+    margin: 0 10%;
+}
+
+.title-content p{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.title-content span{
+    font-size: 24px;
+}
+
+.compare-container{
+    margin: 80px 10% 114px 10%;
+}
+.compare-container {
+    overflow-x: auto; /* Горизонтальная прокрутка */
+    overflow-y: hidden; /* Скрыть вертикальную прокрутку */
+    white-space: nowrap; /* Запретить перенос строк */
+    scrollbar-width: thin; /* Ширина скроллбара */
+    scrollbar-color: #888 #f2f2f2; /* Цвет скроллбара */
+}
+
+.course-compare-wrapper {
+    overflow-y: auto; /* Вертикальная прокрутка */
+    max-height: 300px; /* Установите желаемую максимальную высоту для прокручиваемой области */
+}
+
+.table-head,
+.table-body {
+    display: flex;
+}
+
+.table-row {
+    display: flex;
+}
+
+.item-first {
+    position: sticky; /* Сделаем первый элемент непрокручиваемым */
+    left: 0; /* Фиксируем его слева */
+    z-index: 1; /* Устанавливаем z-index, чтобы он оставался поверх других элементов */
+    background-color: #f2f2f2; /* Добавим фоновый цвет для выделения */
+}
+
+
+.item{
+    border: 1px solid black;
+}
+
+.item-first{
+    flex: 0 0 25%;
+    border: none;
+    background-color: transparent;
+}
+
+/* Скрыть стандартный скролл бар */
+.compare-container {
+    overflow: hidden;
+}
+
+/* Стили для элемента navigate */
+.navigate {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000; /* Убедитесь, что элементы navigate находятся поверх других элементов */
+}
+
+.left,
+.right {
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Стили для scrollbar */
+.scrollbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Убедитесь, что scrollbar находится поверх других элементов */
+}
+
+.handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+
+

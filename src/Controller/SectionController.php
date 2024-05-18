@@ -15,7 +15,7 @@ use Twig\Environment;
 
 class SectionController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
+    #[Route('/', name: 'app_homepage')]
     public function index(Environment $twig, ArticlesRepository $articlesRepository, TypeSportRepository $typeSportRepository): Response
     {
 //        // Выбрать 6 случайных записей из таблицы articles
@@ -30,7 +30,7 @@ class SectionController extends AbstractController
         return new Response($twig->render('MainPage/index.html.twig'));
     }
 
-    #[Route('/catalog', name: 'catalog')]
+    #[Route('/catalog', name: 'app_catalog')]
     public function catalog(Environment $twig, SectionsRepository $sectionsRepository, ReviewsRepository $reviewsRepository):Response
     {
         // Извлекаем все рейтинги из таблицы reviews
@@ -48,16 +48,21 @@ class SectionController extends AbstractController
         return new Response($twig->render('CatalogPage/catalog.html.twig'));
     }
 
-    #[Route('/section', name: 'section')]
+    #[Route('/section', name: 'app_section')]
     public function section(Environment $twig, SectionsRepository $sectionsRepository, ReviewsRepository $reviewsRepository):Response
     {
         return new Response($twig->render('CatalogPage/section.html.twig'));
     }
 
-    #[Route('/blog', name: 'blog')]
-    public function blog(Environment $twig, ArticlesRepository $articlesRepository)
+    #[Route('/blog', name: 'app_blog')]
+    public function blog(Environment $twig, ArticlesRepository $articlesRepository): Response
     {
         return new Response($twig->render('BlogPage/blog.html.twig'));
     }
 
+    #[Route('/compare', name: 'app_compare')]
+    public function compare(Environment $twig): Response
+    {
+        return new Response($twig->render('compare/compare.html.twig'));
+    }
 }
