@@ -9,6 +9,12 @@ a {
     text-decoration: none;
 }
 
+.popular-title{
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+}
+
 .title-content {
     padding: 50px 10% 50px 10%;
     display: flex;

@@ -29,6 +29,16 @@ libxslt1-dev \
 && pecl install -f xdebug \
 && docker-php-ext-enable xdebug
 
+RUN pecl install raphf \
+    && docker-php-ext-enable raphf
+
+# Install pecl_http extension
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libevent-dev \
+    && pecl install pecl_http \
+    && docker-php-ext-enable http
+
 RUN apt-get install librabbitmq-dev -y
 RUN pecl install amqp
 RUN docker-php-ext-enable amqp
@@ -41,3 +51,4 @@ php -- --install-dir=/usr/bin/ --filename=composer
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install symfony-cli
 RUN cd /usr/local/etc/php && cp php.ini-development php.ini
+

@@ -1,18 +1,60 @@
 <?php
+// src/Controller/ProfileController.php
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ProfileFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    public function index(): Response
+    #[Route('/profile/user_info', name: 'app_profile_user_info')]
+    public function userInfo(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
+        // Получаем текущего пользователя
+        $user = $security->getUser();
+
+        // Проверяем, что пользователь не null и реализует интерфейс PasswordAuthenticatedUserInterface
+        if (!$user instanceof PasswordAuthenticatedUserInterface) {
+            throw $this->createAccessDeniedException('Доступ запрещен');
+        }
+
+        // Создаем форму и передаем в неё текущего пользователя
+        $form = $this->createForm(ProfileFormType::class, $user);
+        $form->handleRequest($request);
+
+        // Обрабатываем форму
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $plainPassword
+                    )
+                );
+            }
+
+            // Сохраняем изменения в базе данных
+            $entityManager->flush();
+
+            // Обновляем данные в сессии (если нужно)
+            $this->addFlash('success', 'Ваши данные успешно обновлены.');
+
+            return $this->redirectToRoute('app_profile_user_info');
+        }
+
+        return $this->render('profile/profile.html.twig', [
+            'profileForm' => $form->createView(),
         ]);
+
     }
 }

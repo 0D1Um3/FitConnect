@@ -9,7 +9,7 @@
     <section>
         <div class="catalog-container">
             <p class="type-sport-title">
-                Футбол
+                {{ currentTypeSport.sportName }}
             </p>
             <div class="catalog-content">
                 <div class="filter">
@@ -39,24 +39,24 @@
                     </div>
                 </div>
                 <div class="content">
-                    {% for i in 1..5 %}
+                    {% for section in sections %}
                         <div class="section-card">
                             <div class="wrap">
-                                <a href="#" class="section-link">
+                                <a href="/section/{{ section.id }}" class="section-link">
                                     <div class="stage-1">
                                         <div class="base-left">
                                         <span class="section-name">
-                                            Зенит
+                                            {{ section.name }}
                                         </span>
                                         </div>
                                         <div class="base-right ms-auto">
                                         <span class="price">
-                                            1500 Руб./Мес.
+                                            {{ section.price }} Руб./Мес.
                                         </span>
                                         </div>
                                     </div>
                                     <div class="stage-2">
-                                        <span class="address">г.Пенза, ул. Пушкина, д. Колотушкина</span>
+                                        <span class="address">{{section.address}}</span>
                                         <div class="star-rate d-flex">
                                             <div class="stars">
                                                 <div class="rating">
@@ -75,18 +75,12 @@
                                     </div>
                                     <div class="stage-3">
                                         <div class="base-left">
-                                            <strong>Формат:</strong> Изучение теории и практика на задачах, приближённых
-                                            к
-                                            реальным, обратная связь от курирующего эксперта, защита итогового проекта.
+                                            <strong>Для кого:</strong>
+                                            {{ section.forWho }}
                                         </div>
                                         <div class="base-right">
-                                            <strong>Особенности:</strong> Обучение на практике онлайн в удобное время.
-                                            Закрытые
-                                            вебинары и практические задания на основе реальных кейсов. Готовый план по
-                                            интеграции аналитики в управление бизнесом по окончании курса. Преподаватели
-                                            -
-                                            эксперты в сфере аналитики с большим опытом. Возможность оплатить курс в
-                                            рассрочку.
+                                            <strong>Фомат:</strong>
+                                            {{ section.format}}
                                         </div>
                                     </div>
                                 </a>

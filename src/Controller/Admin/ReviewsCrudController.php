@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -25,7 +26,7 @@ class ReviewsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Review')
+            ->setEntityLabelInSingular('Отзыв')
             ->setEntityLabelInPlural('Отзывы')
             ->setSearchFields(['author', 'text_review', 'email', 'title', 'positive', 'negative'])
             ->setDefaultSort(['createdAt' => 'DESC']);
@@ -40,28 +41,24 @@ class ReviewsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('sections', 'Секция')
+            ->setFormTypeOptions(['choice_label' => 'name']);
+        yield AssociationField::new('users', 'Пользователь')
             ->setFormTypeOptions([
-                'class' => \App\Entity\Sections::class,
+                'class' => \App\Entity\User::class,
+                'choice_label' => 'login'
             ]);
-        yield TextField::new('author', 'Автор');
-        yield EmailField::new('email');
         yield TextField::new('title', 'Заголовок');
-        yield TextField::new('rating', 'Рэйтинг');
-        yield TextareaField::new('positive', 'Плюсы')
-            ->hideOnIndex();
-        yield TextareaField::new('negative', 'Минусы')
-            ->hideOnIndex();
-        yield TextareaField::new('text_review', 'Текст отзыва')
-            ->hideOnIndex();
+        yield IntegerField::new('rating', 'Рэйтинг');
+        yield TextareaField::new('positive', 'Плюсы');
+        yield TextareaField::new('negative', 'Минусы');
+        yield TextareaField::new('textReview', 'Текст отзыва');
 
-        $createdAt = DateTimeField::new('created_at', 'Дата написания')->setFormTypeOptions([
+        $createdAt = DateTimeField::new('createdAt', 'Дата написания')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),
             'widget' => 'single_text'
         ]);
         if (Crud::PAGE_EDIT === $pageName) {
             yield $createdAt->setFormTypeOption('disabled', true);
-        } else {
-            yield $createdAt;
         }
     }
 

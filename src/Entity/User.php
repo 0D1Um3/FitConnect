@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -56,12 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Reviews>
      */
-    #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $feedBack;
+    #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'users', orphanRemoval: true)]
+    private Collection $reviews;
 
     public function __construct()
     {
-        $this->feedBack = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+       return $this->login;
     }
 
     public function getId(): ?int
@@ -88,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->login;
     }
 
     /**
@@ -223,6 +227,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($feedBack->getUserId() === $this) {
                 $feedBack->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUsers() === $this) {
+                $review->setUsers(null);
             }
         }
 

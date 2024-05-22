@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Reviews;
+use App\Entity\Sections;
 use App\Repository\ArticlesRepository;
 use App\Repository\ReviewsRepository;
 use App\Repository\SectionsRepository;
@@ -10,49 +11,57 @@ use App\Repository\TypeSportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\ReviewsType;
+use App\Message\ReviewsNotification;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Twig\Environment;
 
 
 class SectionController extends AbstractController
 {
-    #[Route('/', name: 'app_homepage')]
-    public function index(Environment $twig, ArticlesRepository $articlesRepository, TypeSportRepository $typeSportRepository): Response
-    {
-//        // Выбрать 6 случайных записей из таблицы articles
-//        $randomArticles = $articlesRepository->findRandom(3);
-//
-//        // Выбрать 3 записи из таблицы typeSport с самыми большими значениями поля entries
-//        $topTypeSports = $typeSportRepository->findTopByEntries(3);
-//
-//        ['articles'=>$randomArticles,
-//            'typeSport'=>$topTypeSports,]
+    #[Route('/section/{id}', name: 'app_section')]
+    public function section(
+        SectionsRepository $sectionsRepository,
+        ReviewsRepository $reviewsRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MessageBusInterface $messageBus,
+        int $id
+    ): Response {
+        $section = $sectionsRepository->find($id);
 
-        return new Response($twig->render('MainPage/index.html.twig'));
+        if (!$section) {
+            throw $this->createNotFoundException('The section does not exist');
+        }
+
+        $review = new Reviews();
+        $form = $this->createForm(ReviewsType::class, $review);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Set the sections and users before saving
+            $review->setSections($section);
+            $review->setUsers($this->getUser());
+
+            $entityManager->persist($review);
+            $entityManager->flush();
+
+            // Dispatch review notification message
+            $messageBus->dispatch(new ReviewsNotification($review->getId()));
+
+            return $this->redirectToRoute('app_section', ['id' => $id]);
+        }
+
+        return $this->render('CatalogPage/section.html.twig', [
+            'section' => $section,
+            'reviews' => $reviewsRepository->findBy(['sections' => $id]),
+            'form' => $form->createView(),
+        ]);
     }
 
-    #[Route('/catalog', name: 'app_catalog')]
-    public function catalog(Environment $twig, SectionsRepository $sectionsRepository, ReviewsRepository $reviewsRepository):Response
-    {
-        // Извлекаем все рейтинги из таблицы reviews
-//        $reviews = $reviewsRepository->findAll();
-//
-//        // Вычисляем среднее арифметическое рейтингов
-//        $totalRating = 0;
-//        foreach ($reviews as $review) {
-//            $totalRating += $review->getRating();
-//        }
-//        $averageRating = count($reviews) > 0 ? $totalRating / count($reviews) : 0;
-//        ['averageRating' => $averageRating,]
 
-
-        return new Response($twig->render('CatalogPage/catalog.html.twig'));
-    }
-
-    #[Route('/section', name: 'app_section')]
-    public function section(Environment $twig, SectionsRepository $sectionsRepository, ReviewsRepository $reviewsRepository):Response
-    {
-        return new Response($twig->render('CatalogPage/section.html.twig'));
-    }
 
     #[Route('/blog', name: 'app_blog')]
     public function blog(Environment $twig, ArticlesRepository $articlesRepository): Response

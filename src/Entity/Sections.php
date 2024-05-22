@@ -28,7 +28,7 @@ class Sections
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column(length: 20)]
     private ?string $contactPhone = null;
 
     #[ORM\Column(length: 255)]
@@ -73,8 +73,7 @@ class Sections
 
     public function __toString(): string
     {
-        return $this->description.''. $this->format.' '.$this->forWho.' '.$this->name.' '.$this->contactEmail.' '.
-            $this->contactPhone.' '.$this->linkToMap.' '.$this->price;
+        return $this->name;
     }
 
     public function getId(): ?int

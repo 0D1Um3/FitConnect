@@ -1,5 +1,5 @@
 // Слайдер
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
     let items = document.querySelectorAll('.slider-item');
     let dots = document.querySelectorAll('.slider-dot');
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', function() {
+        dot.addEventListener('click', function () {
             currentIndex = index;
             updateSlider();
         });
@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //Кнопка вверх
 
-document.addEventListener('DOMContentLoaded', function() {
-     let scrollTopBtn = document.getElementById("scrollTopBtn");
+document.addEventListener('DOMContentLoaded', function () {
+    let scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function () {
         // Показать кнопку "Вверх" после прокрутки на определенную высоту страницы
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             scrollTopBtn.style.display = "block";
@@ -34,13 +34,91 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Плавная прокрутка страницы вверх при нажатии на кнопку "Вверх"
-    scrollTopBtn.addEventListener("click", function() {
+    scrollTopBtn.addEventListener("click", function () {
         document.body.scrollTop = 0; // Для Safari
         document.documentElement.scrollTop = 0; // Для Chrome, Firefox, IE и Opera
     });
 });
 
-//Страница сравнения
+//поп ап профиля
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const accountButton = document.getElementById('accountButton');
+    const collapseMenu = document.getElementById('collapseMenu');
+    const arrowIcon = document.getElementById('arrowIcon');
+    const catalogButton = document.getElementById('catalogButton');
+    const cityButton = document.getElementById('cityButton');
+    const catalogOverlay = document.getElementById('catalogOverlay');
+    const cityOverlay = document.getElementById('cityOverlay');
+    const body = document.body;
+
+    // Function to open or close overlay
+    function toggleOverlay(overlay) {
+        if (overlay.style.display === 'block') {
+            closeOverlay(overlay);
+        } else {
+            openOverlay(overlay);
+        }
+    }
+
+    function openOverlay(overlay) {
+        overlay.style.display = 'block';
+        body.style.overflow = 'hidden';
+    }
+
+    function closeOverlay(overlay) {
+        overlay.style.display = 'none';
+        body.style.overflow = 'auto';
+    }
+
+    // Account dropdown handling
+    accountButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        collapseMenu.classList.toggle('show');
+        arrowIcon.classList.toggle('rotate');
+    });
+
+    // Закрытие меню при клике вне его области
+    document.addEventListener('click', (e) => {
+        if (!accountButton.contains(e.target) && !collapseMenu.contains(e.target)) {
+            collapseMenu.classList.remove('show');
+            arrowIcon.classList.remove('rotate');
+        }
+    });
+
+    // Handling overlay buttons
+    catalogButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggleOverlay(catalogOverlay);
+    });
+
+    cityButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggleOverlay(cityOverlay);
+    });
+
+    // Close overlays when clicking outside of them
+    catalogOverlay.addEventListener('click', function (e) {
+        if (!catalogOverlay.querySelector('.overlay-content').contains(e.target)) {
+            closeOverlay(catalogOverlay);
+        }
+    });
+
+    cityOverlay.addEventListener('click', function (e) {
+        if (!cityOverlay.querySelector('.overlay-content').contains(e.target)) {
+            closeOverlay(cityOverlay);
+        }
+    });
+});
+
+//Отзывы
+
+
+
+
+
+
+
 
 
 

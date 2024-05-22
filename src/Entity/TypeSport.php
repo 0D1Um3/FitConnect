@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TypeSportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeSportRepository::class)]
@@ -32,6 +33,9 @@ class TypeSport
      */
     #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: 'typesSport', orphanRemoval: true)]
     private Collection $articles;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $titleImage = null;
 
     public function __construct()
     {
@@ -130,6 +134,18 @@ class TypeSport
                 $article->setTypesSport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitleImage(): ?string
+    {
+        return $this->titleImage;
+    }
+
+    public function setTitleImage(string $titleImage): static
+    {
+        $this->titleImage = $titleImage;
 
         return $this;
     }

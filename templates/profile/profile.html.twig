@@ -1,0 +1,32 @@
+{% extends 'profile/index.html.twig' %}
+
+{% block content %}
+
+    <div class="content">
+        <p class="profile-title">Профиль на сайте</p>
+        <p class="welcome">Добро пожаловать {{ app.user.login }}</p>
+        <div class="form-user-info">
+            {{ form_start(profileForm) }}
+
+            <div class="form-group">
+                {{ form_row(profileForm.email) }}
+                {{ form_row(profileForm.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profileForm.surname) }}
+                {{ form_row(profileForm.patronymic) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profileForm.login) }}
+                {{ form_row(profileForm.phoneNumber) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(profileForm.password) }}
+            </div>
+            <button type="submit">Сохранить</button>
+
+            {{ form_end(profileForm) }}
+        </div>
+    </div>
+
+{% endblock %}

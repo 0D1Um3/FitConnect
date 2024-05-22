@@ -21,35 +21,21 @@
         </div>
         <div class="popular-container">
             <div class="popular-content">
-                <p class="title"><span style="color: #018578;">Популярные</span> секции</p>
+                <p class="popular-title">
+                    <span style="color: #018578;">Популярные </span> секции
+                </p>
                 <div class="popular-section">
+                    {% for typeSport in topTypesSport %}
                     <div class="card">
-                        <a href="#">
-                            <img src="{{ asset('images/footbal.jpg') }}" alt="popular-section-img">
+                        <a href="/catalog/{{ typeSport.id }}">
+                            <img src="{{ asset('images/typeSport/'~typeSport.titleImage) }}" alt="popular-section-img">
                             <div class="card-overlay">
-                                <p class="caption">Футбол</p>
-                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
+                                <p class="caption">{{ typeSport.sportName }}</p>
+                                <p href="/catalog/{{ typeSport.id }}" class="go-to-catalog">Перейти в каталог</p>
                             </div>
                         </a>
                     </div>
-                    <div class="card">
-                        <a href="#">
-                            <img src="{{ asset('images/vol.jpg') }}" alt="popular-section-img">
-                            <div class="card-overlay">
-                                <p class="caption">Волейбол</p>
-                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <img src="{{ asset('images/pinpong.jpg') }}" alt="popular-section-img">
-                            <div class="card-overlay">
-                                <p class="caption">Настольный тенис</p>
-                                <p href="#" class="go-to-catalog">Перейти в каталог</p>
-                            </div>
-                        </a>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

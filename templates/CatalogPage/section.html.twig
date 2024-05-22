@@ -9,7 +9,7 @@
         <div class="title-container">
             <div class="title-content">
                 <div class="info-container">
-                    <p class="section-name">Секция футбола "Зенит"</p>
+                    <p class="section-name">Секция "{{ section.name }}"</p>
                     <p class="desc">Добро пожаловать в футбольную секцию Зенит!
                         Разгадайте тайны игры, освоив основы с нашими практическими занятиями.
                         Почувствуйте страсть к футболу, в нашей секции.</p>
@@ -30,7 +30,7 @@
                             <div class="int-rating">5/5</div>
                         </div>
                         <span class="count-reviews">10 отзывов</span>
-                        <p class="section-price">1500 Руб./Мес.</p>
+                        <p class="section-price">{{ section.price }} Руб./Мес.</p>
                     </div>
                     <div class="entry-stage">
                         <button class="comparison">
@@ -65,10 +65,7 @@
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                                 <div class="accordion-body desc-text">
-                                    Наши тренировки по футболу - идеальное начало для тех,
-                                    кто мечтает войти в мир футбольной игры.
-                                    "Старт в мире футбола" подходит для всех,
-                                    кто стремится к развитию в этом увлекательном виде спорта
+                                    {{ section.forWho }}
                                 </div>
                             </div>
                         </div>
@@ -84,10 +81,7 @@
                             </h2>
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
                                 <div class="accordion-body">
-                                    Деятельность нашей секции предполагает тренировки три раза в неделю,
-                                    обеспечивая вам доступ к интенсивным урокам и регулярным тренировкам на поле.
-                                    Наш график создан для вашего удобства, чтобы вы могли наслаждаться процессом
-                                    обучения.
+                                    {{ section.format }}
                                 </div>
                             </div>
                         </div>
@@ -106,9 +100,7 @@
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                                 <div class="accordion-body map-body">
                                     <div id="map">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2388.439086486507!2d44.97479199407662!3d53.22790490071747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4141016f04aa4d49%3A0xb42f4bb23eb871b1!2z0YPQuy4g0KLQuNGC0L7QstCwLCAz0JAsINCf0LXQvdC30LAsINCf0LXQvdC30LXQvdGB0LrQsNGPINC-0LHQuy4sINCg0L7RgdGB0LjRjywgNDQwMDI4!5e0!3m2!1sru!2snl!4v1715694151137!5m2!1sru!2snl"
-                                                width="1500px" height="600" style="border:0;" allowfullscreen=""
-                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        {{ section.linkToMap|raw }}
                                     </div>
                                 </div>
                             </div>
@@ -118,61 +110,98 @@
             </div>
             <div id="section-reviews" class="section-reviews">
                 <div class="reviews-title">
-                    <p>Отзывы о секции "Зенит"</p>
-                    <a href="#">Написать отзыв</a>
+                    <p>Отзывы о секции "{{ section.name }}"</p>
+                    <a href="#send-review">Написать отзыв</a>
                 </div>
                 <div class="reviews-body">
-                    {% for j in 1..5 %}
-                        <div class="reviews-card">
-                            <div class="stage-1">
-                                <div class="reviews-info">
-                                    <p class="user-name">Анатолий Мурнаев</p>
-                                    <p class="createdAt" style="color: #8F8F8F;">20.04.2024</p>
-                                </div>
-                                <div class="stars">
-                                    <div class="rating">
-                                        {% for i in 1..5 %}
-                                            {% if i <= 5 %}
-                                                <span class="star-filled">★</span>
-                                            {% else %}
-                                                <span class="star-empty">☆</span>
-                                            {% endif %}
-                                        {% endfor %}
+                    {% if reviews %}
+                        {% for review in reviews %}
+                            <div class="reviews-card">
+                                <div class="stage-1">
+                                    <div class="reviews-info">
+                                        <p class="user-name">Анатолий Мурнаев</p>
+                                        <p class="createdAt" style="color: #8F8F8F;">20.04.2024</p>
                                     </div>
-                                    <div class="text">5/5</div>
+                                    <div class="stars">
+                                        <div class="rating">
+                                            {% for i in review.rating %}
+                                                {% if i <= 5 %}
+                                                    <span class="star-filled">★</span>
+                                                {% else %}
+                                                    <span class="star-empty">☆</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="text">{{ review.rating }}/5</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="body">
-                                <p class="reviews-header">Все очень понравилось!</p>
-                                <span class="text-review">Присоединившись к футбольной секции Зенита, я нашел не просто команду, а настоящую футбольную семью. Профессиональные тренеры, интенсивные тренировки и поддержка сочувствующих товарищей создают неповторимую атмосферу. Здесь не просто играют в футбол, здесь живут им, и я горжусь быть частью этой захватывающей истории успеха.</span>
-                                <div class="positive-negative">
-                                    <div class="positive">
-                                        <span><img src="{{ asset('images/plus.svg') }}" alt="plus">Плюсы</span>
-                                        <div class="item">
-                                            <span>•</span>
-                                            Профессиональные тренеры
+                                <div class="body">
+                                    <p class="reviews-header">Все очень понравилось!</p>
+                                    <span class="text-review">Присоединившись к футбольной секции Зенита, я нашел не просто команду, а настоящую футбольную семью. Профессиональные тренеры, интенсивные тренировки и поддержка сочувствующих товарищей создают неповторимую атмосферу. Здесь не просто играют в футбол, здесь живут им, и я горжусь быть частью этой захватывающей истории успеха.</span>
+                                    <div class="positive-negative">
+                                        <div class="positive">
+                                            <span><img src="{{ asset('images/plus.svg') }}" alt="plus">Плюсы</span>
+                                            <div class="item">
+                                                <span>•</span>
+                                                Профессиональные тренеры
+                                            </div>
+                                        </div>
+                                        <div class="negative">
+                                            <span><img src="{{ asset('images/minus.svg') }}" alt="minus">Минусы</span>
+                                            <div class="item">
+                                                <span>•</span>
+                                                Только одно поле на котором могут не поместиться
+                                                все ученики
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="negative">
-                                        <span><img src="{{ asset('images/minus.svg') }}" alt="minus">Минусы</span>
-                                        <div class="item">
-                                            <span>•</span>
-                                            Только одно поле на котором могут не поместиться
-                                            все ученики
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-reviews">
+                            <span>У этой секции пока нет отзывов =(</span>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
-                <div class="send-review">
+                {% if app.user %}
+                <div class="send-review" id="send-review">
+                    <p class="form-review-title"></p>
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.textReview) }}
+                    </div>
+                    <div class="star-rating">
+                        <label>Ваша оценка</label>
+                        {{ form_widget(form.rating) }}
+                    </div>
+                    <div class="form-positive-negative">
+                        {{ form_row(form.positive) }}
+                        {{ form_row(form.negative) }}
+                    </div>
+                    <button type="submit">Отправить</button>
+                    {{ form_end(form) }}
+                </div>
+                {% else %}
+                <div class="no-log-in">
+                    <span>Упс... Чтобы оставить отзыв нужно войти в аккаунт</span>
+                </div>
+                {% endif %}
 
-                </div>
             </div>
 
         </div>
     </section>
-
+    <script>
+        $(function() {
+            $('.star-rating').barrating({
+                theme: 'css-stars',
+                initialRating: {{ form.rating.vars.value }}
+            });
+        });
+    </script>
 
 {% endblock %}

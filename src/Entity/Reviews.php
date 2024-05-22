@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewsRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Reviews
 {
     #[ORM\Id]
@@ -33,12 +34,12 @@ class Reviews
     #[ORM\JoinColumn(nullable: false)]
     private ?Sections $sections = null;
 
-    #[ORM\ManyToOne(inversedBy: 'feedBack')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     #[ORM\Column]
     private ?int $rating = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $users = null;
 
     public function getId(): ?int
     {
@@ -67,6 +68,12 @@ class Reviews
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    #[ORm\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getPositive(): ?string
@@ -117,18 +124,6 @@ class Reviews
         return $this;
     }
 
-    public function getUserId(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUserId(?User $user_id): static
-    {
-        $this->user = $user_id;
-
-        return $this;
-    }
-
     public function getRating(): ?int
     {
         return $this->rating;
@@ -137,6 +132,18 @@ class Reviews
     public function setRating(int $rating): static
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
 
         return $this;
     }

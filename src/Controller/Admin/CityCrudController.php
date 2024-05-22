@@ -18,7 +18,7 @@ class CityCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('City')
+            ->setEntityLabelInSingular('Город секции')
             ->setEntityLabelInPlural('Города секций')
             ->setSearchFields(['cityName'])
             ->setDefaultSort(['cityName' => 'ASC']);
