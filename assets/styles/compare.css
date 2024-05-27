@@ -23,6 +23,31 @@
     margin: 80px 10% 114px 10%;
 }
 
+.action{
+    display: flex;
+}
+
+.entries{
+    border: none;
+    color: white;
+    background-color: black;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+}
+
+.delete-button{
+    margin-left: 10px;
+    background: red;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
 /*Тест*/
 
 .course-compare-wrapper {
@@ -101,23 +126,6 @@
     word-break: break-word;
 }
 
-.entries{
-    border: none;
-    color: white;
-    background-color: black;
-    border-radius: 30px;
-    width: 120px;
-    height: 35px;
-}
-
-.delete-button{
-    margin-left: 10px;
-    background: red;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-}
 
 
 

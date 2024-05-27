@@ -66,9 +66,24 @@ class Sections
     #[ORM\Column(type: Types::TEXT)]
     private ?string $linkToMap = null;
 
+
+    /**
+     * @var Collection<int, UserEntries>
+     */
+    #[ORM\OneToMany(targetEntity: UserEntries::class, mappedBy: 'sections', orphanRemoval: true)]
+    private Collection $userEntries;
+
+    /**
+     * @var Collection<int, CompareSection>
+     */
+    #[ORM\OneToMany(targetEntity: CompareSection::class, mappedBy: 'sections', orphanRemoval: true)]
+    private Collection $compareSections;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->userEntries = new ArrayCollection();
+        $this->compareSections = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -275,6 +290,67 @@ class Sections
     public function setLinkToMap(string $linkToMap): static
     {
         $this->linkToMap = $linkToMap;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, UserEntries>
+     */
+    public function getUserEntries(): Collection
+    {
+        return $this->userEntries;
+    }
+
+    public function addUserEntry(UserEntries $userEntry): static
+    {
+        if (!$this->userEntries->contains($userEntry)) {
+            $this->userEntries->add($userEntry);
+            $userEntry->setSections($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEntry(UserEntries $userEntry): static
+    {
+        if ($this->userEntries->removeElement($userEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($userEntry->getSections() === $this) {
+                $userEntry->setSections(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompareSection>
+     */
+    public function getCompareSections(): Collection
+    {
+        return $this->compareSections;
+    }
+
+    public function addCompareSection(CompareSection $compareSection): static
+    {
+        if (!$this->compareSections->contains($compareSection)) {
+            $this->compareSections->add($compareSection);
+            $compareSection->setSections($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompareSection(CompareSection $compareSection): static
+    {
+        if ($this->compareSections->removeElement($compareSection)) {
+            // set the owning side to null (unless already changed)
+            if ($compareSection->getSections() === $this) {
+                $compareSection->setSections(null);
+            }
+        }
 
         return $this;
     }

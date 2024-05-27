@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileFormType;
+use App\Repository\UserEntriesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,23 @@ class ProfileController extends AbstractController
         return $this->render('profile/profile.html.twig', [
             'profileForm' => $form->createView(),
         ]);
+    }
 
+    #[Route('/profile/user_entries', name: 'app_user_entries')]
+    public function userEntries(UserEntriesRepository $userEntriesRepository): Response
+    {
+        // Получение текущего пользователя
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('Пользователь не найден');
+        }
+
+        // Получение записей текущего пользователя
+        $entries = $userEntriesRepository->findBy(['user' => $user]);
+
+        return $this->render('profile/userEntries.html.twig', [
+            'entries' => $entries,
+        ]);
     }
 }

@@ -18,16 +18,16 @@
         </div>
         <div class="blog-container">
             <div class="row blog-row">
-                {% for i in 1..10 %}
+                {% for article in articles %}
                 <div class="clo-md-6 col-sm-12 card-container">
                     <div class="card-article">
-                        <a href="#" class="article-link">
-                            <img src="{{ asset('images/PP.png') }}" alt="article-img">
+                        <a href="/article/{{ article.id }}" class="article-link">
+                            <img src="{{ asset('images/articles/'~article.titleImage) }}" alt="article-img">
                             <div class="card-article-overlay">
                                 <p class="data-create">23 апреля 2024</p>
                                 <p class="article-name">Все что вы не знали о
                                     пользе правильного питания</p>
-                                <p href="#" class="read-full">
+                                <p href="/article/{{ article.id }}" class="read-full">
                                     <img src="{{ asset('images/Arrow.svg') }}" alt="arrow">
                                     <span>Читать полностью</span>
                                 </p>

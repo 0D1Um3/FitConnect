@@ -1,0 +1,38 @@
+{% extends 'profile/index.html.twig' %}
+
+{% block content %}
+
+    <section>
+        <div class="entries-container">
+            <div class="content">
+                <h1>Мои записи</h1>
+                {% if entries is empty %}
+                    <p>У вас нет записей.</p>
+                {% else %}
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Секция</th>
+                            <th>Вид спорта</th>
+                            <th>Email организатора</th>
+                            <th>Телефон организатора</th>
+                            <th>Дата записи</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entry in entries %}
+                            <tr>
+                                <td>{{ entry.sections.name }}</td>
+                                <td>{{ entry.sections.typesSport.sportName }}</td>
+                                <td>{{ entry.sections.contactEmail }}</td>
+                                <td>{{ entry.sections.contactPhone }}</td>
+                                <td>{{ entry.createdAt|date('d.m.Y H:i') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

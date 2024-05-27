@@ -41,6 +41,9 @@ class Reviews
     #[ORM\JoinColumn(nullable: false)]
     private ?User $users = null;
 
+    #[ORM\Column(length: 255, options: ['default' => 'submitted'])]
+    private ?string $state = 'submitted';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -144,6 +147,18 @@ class Reviews
     public function setUsers(?User $users): static
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): static
+    {
+        $this->state = $state;
 
         return $this;
     }

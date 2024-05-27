@@ -5,22 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CityController extends AbstractController
 {
-    #[Route('/set-city', name: 'app__set_city', methods: ['POST'])]
-    public function setCity(Request $request): Response
+    #[Route('/set-city/{city}', name: 'set_city')]
+    public function setCity(Request $request, string $city): Response
     {
-        $data = json_decode($request->getContent(), true);
-        if (!isset($data['city'])) {
-            return new Response('City not provided', Response::HTTP_BAD_REQUEST);
-        }
-
-        $city = $data['city'];
-        // Сохранение выбранного города в сессию
-        $request->getSession()->set('selected_city', $city);
-
-        return $this->redirectToRoute('index', ['city' => $city]);
+        $request->getSession()->set('current_city', $city);
+        return $this->redirectToRoute('app_homepage');
     }
 }

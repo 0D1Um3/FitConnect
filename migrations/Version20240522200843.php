@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240516195729 extends AbstractMigration
+final class Version20240522200843 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,14 @@ final class Version20240516195729 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE patronymic patronymic VARCHAR(60) DEFAULT NULL');
+        $this->addSql('ALTER TABLE articles DROP created_at');
+        $this->addSql('ALTER TABLE images ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user CHANGE patronymic patronymic VARCHAR(60) NOT NULL');
+        $this->addSql('ALTER TABLE articles ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('ALTER TABLE images DROP created_at');
     }
 }

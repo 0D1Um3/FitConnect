@@ -110,6 +110,26 @@
     width: 20px;
 }
 
+.star-half {
+    color: gold;
+    position: relative;
+}
+
+.star-half::after {
+    content: "★";
+    color: #424242;
+    position: absolute;
+    right: 0;
+    width: 50%;
+    overflow: hidden;
+    transform: scaleX(-1);
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+}
+
 .star-empty {
     color: #424242;
 }
@@ -162,6 +182,10 @@
 .entries-button{
     font-size: 14px;
     background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     color: white;
     border: none;
     border-radius: 30px;
@@ -175,10 +199,23 @@
     border-radius: 50px;
     width: 40px;
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c3c3c3;
 }
 
 .comparison img{
     width: 30px;
     height: 30px;
+}
+
+form button{
+    border: none;
+    background: black;
+    border-radius: 20px;
+    color: white;
+    width: 120px;
+    height: 40px;
 }
 

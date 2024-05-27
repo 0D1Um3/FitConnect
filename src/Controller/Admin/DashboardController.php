@@ -3,12 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Articles;
+use App\Entity\CompareSection;
 use App\Entity\Images;
 use App\Entity\Sections;
 use App\Entity\Reviews;
 use App\Entity\User;
 use App\Entity\City;
 use App\Entity\TypeSport;
+use App\Entity\UserEntries;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -44,5 +46,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Виды спорта', 'fas fa-types-sport', TypeSport::class);
         yield MenuItem::linkToCrud('Статьи', 'fas fa-articles', Articles::class);
         yield MenuItem::linkToCrud('Изображения', 'fas fa-images', Images::class);
+        yield MenuItem::linkToCrud('Cравниваемые секции', 'fas fa-scale', CompareSection::class);
+        yield MenuItem::linkToCrud('Записи пользова', 'fas fa-user', UserEntries::class);
     }
 }

@@ -1,10 +1,10 @@
-<header>
+<header style="position: unset">
     <div class="wrapper site-header__wrapper">
         <a href="/" class="brand"><img src="{{ asset('images/Logo.svg') }}" alt="brand"/></a>
         <nav class="navigate">
             <a href="#" id="catalogButton">Каталог секций</a>
             <a href="/blog">Блог</a>
-            <a href="/set-city" id="cityButton" class="city-button">{{ cities[0] }}<img
+            <a href="#" id="cityButton" class="city-button">{{ currentCity }}<img
                         src="{{ asset('images/Expand Arrow.svg') }}" alt="Arrow"></a>
         </nav>
         <div class="header-button">
@@ -28,18 +28,20 @@
 <div id="catalogOverlay" class="dropdown-overlay">
     <div class="overlay-content">
         <h2>Каталог Секций</h2>
-        {% for typeSport in typesSport %}
-            <a href="/catalog/{{ typeSport.id }}">{{ typeSport.sportName }}</a>
-        {% endfor %}
+        <div class="overlay-list">
+            {% for typeSport in typesSport %}
+                <a href="/catalog/{{ typeSport.id }}" class="overlay-item">{{ typeSport.sportName }}</a>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
 <div id="cityOverlay" class="dropdown-overlay">
     <div class="overlay-content">
         <h2>Выберите город</h2>
-        <div class="cities-list">
+        <div class="overlay-list">
             {% for city in cities %}
-                <a href="" class="city-item">{{ city }}</a>
+                <a href="{{ path('set_city', {city: city}) }}" class="overlay-item">{{ city }}</a>
             {% endfor %}
         </div>
     </div>

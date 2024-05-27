@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let items = document.querySelectorAll('.slider-item');
     let dots = document.querySelectorAll('.slider-dot');
 
+    let startX = 0;
+    let endX = 0;
+
     function updateSlider() {
-        let targetX = -currentIndex * (100 / 1.5); /* 100 / 3 - процент ширины карточки */
+        let targetX = -currentIndex * (100 / 1.5); /* 100 / 1.5 - процент ширины карточки */
         document.querySelector('.slider').style.transform = 'translateX(' + targetX + '%)';
         dots.forEach(dot => dot.classList.remove('active'));
         dots[currentIndex].classList.add('active');
@@ -17,7 +20,35 @@ document.addEventListener('DOMContentLoaded', function () {
             updateSlider();
         });
     });
+
+    // Add touch events
+    let slider = document.querySelector('.slider-container');
+
+    slider.addEventListener('touchstart', function (event) {
+        startX = event.touches[0].clientX;
+    });
+
+    slider.addEventListener('touchmove', function (event) {
+        endX = event.touches[0].clientX;
+    });
+
+    slider.addEventListener('touchend', function (event) {
+        let diffX = startX - endX;
+
+        if (diffX > 50) { // Swipe left
+            if (currentIndex < items.length - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        } else if (diffX < -50) { // Swipe right
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        }
+    });
 });
+
 
 //Кнопка вверх
 
@@ -52,7 +83,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const cityOverlay = document.getElementById('cityOverlay');
     const body = document.body;
 
-    // Function to open or close overlay
+    // Функция для закрытия и открытия оверлея
     function toggleOverlay(overlay) {
         if (overlay.style.display === 'block') {
             closeOverlay(overlay);
@@ -71,47 +102,57 @@ document.addEventListener('DOMContentLoaded', (event) => {
         body.style.overflow = 'auto';
     }
 
-    // Account dropdown handling
-    accountButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        collapseMenu.classList.toggle('show');
-        arrowIcon.classList.toggle('rotate');
-    });
+    // Проверка существования элементов перед добавлением обработчиков
+    if (accountButton && collapseMenu && arrowIcon) {
+        // Обработка выпадающего меню аккаунта
+        accountButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            collapseMenu.classList.toggle('show');
+            arrowIcon.classList.toggle('rotate');
+        });
 
-    // Закрытие меню при клике вне его области
-    document.addEventListener('click', (e) => {
-        if (!accountButton.contains(e.target) && !collapseMenu.contains(e.target)) {
-            collapseMenu.classList.remove('show');
-            arrowIcon.classList.remove('rotate');
-        }
-    });
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', (e) => {
+            if (!accountButton.contains(e.target) && !collapseMenu.contains(e.target)) {
+                collapseMenu.classList.remove('show');
+                arrowIcon.classList.remove('rotate');
+            }
+        });
+    }
 
-    // Handling overlay buttons
-    catalogButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        toggleOverlay(catalogOverlay);
-    });
+    if (catalogButton && catalogOverlay) {
+        // Обработка кнопок оверлея
+        catalogButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            toggleOverlay(catalogOverlay);
+        });
 
-    cityButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        toggleOverlay(cityOverlay);
-    });
+        // Закрытие оверлея при клике вне его области
+        catalogOverlay.addEventListener('click', function (e) {
+            if (!catalogOverlay.querySelector('.overlay-content').contains(e.target)) {
+                closeOverlay(catalogOverlay);
+            }
+        });
+    }
 
-    // Close overlays when clicking outside of them
-    catalogOverlay.addEventListener('click', function (e) {
-        if (!catalogOverlay.querySelector('.overlay-content').contains(e.target)) {
-            closeOverlay(catalogOverlay);
-        }
-    });
+    if (cityButton && cityOverlay) {
+        cityButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            toggleOverlay(cityOverlay);
+        });
 
-    cityOverlay.addEventListener('click', function (e) {
-        if (!cityOverlay.querySelector('.overlay-content').contains(e.target)) {
-            closeOverlay(cityOverlay);
-        }
-    });
+        // Закрытие оверлея при клике вне его области
+        cityOverlay.addEventListener('click', function (e) {
+            if (!cityOverlay.querySelector('.overlay-content').contains(e.target)) {
+                closeOverlay(cityOverlay);
+            }
+        });
+    }
 });
 
-//Отзывы
+
+
+
 
 
 

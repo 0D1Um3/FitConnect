@@ -23,13 +23,13 @@
                         <div class="item item-first">
                             <div class="name">Секция</div>
                         </div>
-
-                        <div class="item item-course">
-                            <div class="section-name">
-                                <b>Зенит</b>
+                        {% for compareSection in compareSections %}
+                            <div class="item item-course">
+                                <div class="section-name">
+                                    <b>{{ compareSection.sections.name }}</b>
+                                </div>
                             </div>
-                        </div>
-
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="course-compare-table table-body">
@@ -37,20 +37,21 @@
                         <div class="item item-first">
                             <div class="name">Для кого</div>
                         </div>
-                        <div class="item">
-                            <div class="text">Для всех</div>
-                        </div>
-
+                        {% for compareSection in compareSections %}
+                            <div class="item">
+                                <div class="text">{{ compareSection.sections.forWho }}</div>
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="row">
                         <div class="item item-first">
                             <div class="name">Адрес</div>
                         </div>
-                        <div class="item">
-                            <div class="text">ул. Антонова, 39А, Пенза
-                                (ДС Олимпийский)
+                        {% for compareSection in compareSections %}
+                            <div class="item">
+                                <div class="text">{{ compareSection.sections.address }}</div>
                             </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
 
@@ -58,47 +59,36 @@
                         <div class="item item-first">
                             <div class="name">Формат</div>
                         </div>
-                        <div class="item">
-                            <div class="text">Формат: Очные
-                                занятия 3-4 раза
-                                в неделю
+                        {% for compareSection in compareSections %}
+                            <div class="item">
+                                <div class="text">{{ compareSection.sections.format }}</div>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="item item-first">
-                            <div class="name">Особенности</div>
-                        </div>
-                        <div class="item">
-                            <div class="text">Тренировки с
-                                профессионалами
-                                лиги
-                            </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
                     <div class="row">
                         <div class="item item-first">
                             <div class="name">Направление</div>
                         </div>
-                        <div class="item">
-                            <div class="text">Футбол</div>
-                        </div>
-
+                        {% for compareSection in compareSections %}
+                            <div class="item">
+                                <div class="text">{{ compareSection.sections.typesSport }}</div>
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="row">
                         <div class="item item-first">
                             <div class="name"></div>
                         </div>
-                        <div class="item">
-                            <div class="action">
-                                <button class="entries">Записаться</button>
-                                <button class="delete-button"><img src="{{ asset('images/Trash.svg') }}"
-                                                                   alt="delete-button"></button>
+                        {% for compareSection in compareSections %}
+                            <div class="item">
+                                <div class="action">
+                                    <a href="{{ path('app_entry', {sectionId: compareSection.sections.id}) }}" class="entries">Записаться</a>
+                                    <a class="delete-button"><img src="{{ asset('images/Trash.svg') }}"
+                                                                  alt="delete-button"></a>
+                                </div>
                             </div>
-                        </div>
-
+                        {% endfor %}
                     </div>
                 </div>
             </div>

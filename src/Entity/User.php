@@ -58,9 +58,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'users', orphanRemoval: true)]
     private Collection $reviews;
 
+    /**
+     * @var Collection<int, CompareSection>
+     */
+    #[ORM\OneToMany(targetEntity: CompareSection::class, mappedBy: 'user')]
+    private Collection $compareSections;
+
+    /**
+     * @var Collection<int, UserEntries>
+     */
+    #[ORM\OneToMany(targetEntity: UserEntries::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $userEntries;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->compareSections = new ArrayCollection();
+        $this->userEntries = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -257,6 +271,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($review->getUsers() === $this) {
                 $review->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CompareSection>
+     */
+    public function getCompareSections(): Collection
+    {
+        return $this->compareSections;
+    }
+
+    public function addCompareSection(CompareSection $compareSection): static
+    {
+        if (!$this->compareSections->contains($compareSection)) {
+            $this->compareSections->add($compareSection);
+            $compareSection->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompareSection(CompareSection $compareSection): static
+    {
+        if ($this->compareSections->removeElement($compareSection)) {
+            // set the owning side to null (unless already changed)
+            if ($compareSection->getUser() === $this) {
+                $compareSection->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEntries>
+     */
+    public function getUserEntries(): Collection
+    {
+        return $this->userEntries;
+    }
+
+    public function addUserEntry(UserEntries $userEntry): static
+    {
+        if (!$this->userEntries->contains($userEntry)) {
+            $this->userEntries->add($userEntry);
+            $userEntry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEntry(UserEntries $userEntry): static
+    {
+        if ($this->userEntries->removeElement($userEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($userEntry->getUser() === $this) {
+                $userEntry->setUser(null);
             }
         }
 

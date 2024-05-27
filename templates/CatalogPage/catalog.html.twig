@@ -13,89 +13,114 @@
             </p>
             <div class="catalog-content">
                 <div class="filter">
-                    <input type="search" placeholder="Поиск..." name="btn-search" style="padding-left: 10px">
-                    <div class="accordion">
-                        <div class="accordion-item filter-title">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                        aria-controls="panelsStayOpen-collapseOne">
-                                    Цена
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                                <div class="accordion-body filter-body">
-                                    <label class="radio-element">
-                                        <input type="radio" name='price' value="all-sections" checked>
-                                        <span>Все курсы</span>
-                                    </label>
-                                    <label class="radio-element">
-                                        <input type="radio" name='price' value="free">
-                                        <span>Бесплатные</span>
-                                    </label>
+                    <form method="get" action="{{ path('app_catalog', {id: currentTypeSport.id}) }}">
+                        <label for="search"></label>
+                        <input type="search" id="search" placeholder="Поиск..." name="search" value="{{ search }}"
+                               style="padding-left: 10px">
+                        <div class="accordion">
+                            <div class="accordion-item filter-title">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                            aria-controls="panelsStayOpen-collapseOne">
+                                        Цена
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                    <div class="accordion-body filter-body">
+                                        <label class="radio-element">
+                                            <input type="radio" name="price" value="all-sections"
+                                                   {% if priceFilter == 'all-sections' %}checked{% endif %}>
+                                            <span>Все курсы</span>
+                                        </label>
+                                        <label class="radio-element">
+                                            <input type="radio" name="price" value="free"
+                                                   {% if priceFilter == 'free' %}checked{% endif %}>
+                                            <span>Бесплатные</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <button type="submit">Применить</button>
+                    </form>
                 </div>
                 <div class="content">
-                    {% for section in sections %}
-                        <div class="section-card">
-                            <div class="wrap">
-                                <a href="/section/{{ section.id }}" class="section-link">
-                                    <div class="stage-1">
-                                        <div class="base-left">
-                                        <span class="section-name">
-                                            {{ section.name }}
-                                        </span>
+                    {% if sectionsWithRatings %}
+                        {% for sectionData in sectionsWithRatings %}
+                            <div class="section-card">
+                                <div class="wrap">
+                                    <a href="/section/{{ sectionData.section.id }}" class="section-link">
+                                        <div class="stage-1">
+                                            <div class="base-left">
+                                            <span class="section-name">
+                                                {{ sectionData.section.name }}
+                                            </span>
+                                            </div>
+                                            <div class="base-right ms-auto">
+                                                {% if sectionData.section.itFree %}
+                                                    <span class="price">
+                                                        Посещение бесплатно
+                                                    </span>
+                                                {% else %}
+                                                    <span class="price">
+                                                        {{ sectionData.section.price }} Руб./Мес.
+                                                    </span>
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                        <div class="base-right ms-auto">
-                                        <span class="price">
-                                            {{ section.price }} Руб./Мес.
-                                        </span>
-                                        </div>
-                                    </div>
-                                    <div class="stage-2">
-                                        <span class="address">{{section.address}}</span>
-                                        <div class="star-rate d-flex">
-                                            <div class="stars">
-                                                <div class="rating">
-                                                    {% for i in 1..5 %}
-                                                        {% if i <= 5 %}
-                                                            <span class="star-filled">★</span>
-                                                        {% else %}
-                                                            <span class="star-empty">☆</span>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                        <div class="stage-2">
+                                            <span class="address">{{ sectionData.section.address }}</span>
+                                            <div class="star-rate d-flex">
+                                                <div class="stars">
+                                                    <div class="rating">
+                                                        {% for i in 1..5 %}
+                                                            {% if i <= sectionData.averageRating %}
+                                                                <span class="star-filled">★</span>
+                                                            {% elseif i <= sectionData.averageRating + 0.5 %}
+                                                                <span class="star-half">★</span>
+                                                            {% else %}
+                                                                <span class="star-empty">☆</span>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <div class="text">{{ sectionData.averageRating|number_format(1) }}/5
                                                 </div>
                                             </div>
-                                            <div class="text">5/5</div>
+                                            <span class="count-reviews">{{ sectionData.reviewCount }} отзывов</span>
                                         </div>
-                                        <span class="count-reviews">10 отзывов</span>
+                                        <div class="stage-3">
+                                            <div class="base-left">
+                                                <strong>Для кого:</strong>
+                                                {{ sectionData.section.forWho }}
+                                            </div>
+                                            <div class="base-right">
+                                                <strong>Формат:</strong>
+                                                {{ sectionData.section.format }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="stage-4">
+                                    <div class="buttons">
+                                        <a href="{{ path('add_to_compare', {sectionId: sectionData.section.id, redirect: app.request.uri}) }}"
+                                           class="comparison">
+                                            <img src="{{ asset('images/Scales.svg') }}" alt="scale_img">
+                                        </a>
+                                        <a href="{{ path('app_entry', {sectionId: sectionData.section.id}) }}"
+                                           class="entries-button">Записаться</a>
                                     </div>
-                                    <div class="stage-3">
-                                        <div class="base-left">
-                                            <strong>Для кого:</strong>
-                                            {{ section.forWho }}
-                                        </div>
-                                        <div class="base-right">
-                                            <strong>Фомат:</strong>
-                                            {{ section.format}}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="stage-4">
-                                <div class="buttons">
-                                    <button class="comparison"><img src="{{ asset('images/Scales.svg') }}"
-                                                                    alt="scale_img">
-                                    </button>
-                                    <button class="entries-button">Записаться</button>
                                 </div>
                             </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="section-card">
+                            В данном разделе пока нет секций
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
+
             </div>
         </div>
         {% include ('blog-article.html.twig') %}

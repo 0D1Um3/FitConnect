@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/userEntries.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -10,7 +11,7 @@
             <div class="controll">
                 <p class="conroll-title">Личный кабинет</p>
                 <a href="{{ path('app_profile_user_info') }}">Профиль на сайте</a>
-                <a href="#">Мои записи</a>
+                <a href="{{ path('app_user_entries') }}">Мои записи</a>
                 <a href="{{ path('app_logout') }}" class="log-out">Выйти</a>
             </div>
             <div class="profile-content">

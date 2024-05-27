@@ -1,0 +1,50 @@
+.article-container{
+    margin: 80px 25% 114px 25%;
+}
+
+.article-name{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.article-title{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 80px;
+}
+
+.article-title img{
+    width: 100%;
+    height: 600px;
+}
+
+.article-text{
+    text-align: justify;
+    font-size: 24px;
+}
+
+h3{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.article-text img{
+    width: 100%;
+    height: 600px;
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 280px) and (max-width: 1280px) {
+    .article-container{
+        margin: 80px 15%;
+    }
+
+    .article-text{
+        font-size: 32px;
+    }
+
+    .article-text h3{
+        font-size: 40px;
+    }
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/entry.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="entry-container">
+            <div class="content-container">
+                <div class="section-details">
+                    <strong>Детали секции</strong>
+                    <p><b>Название:</b> Секция "{{ section.name }}"</p>
+                    <p><b>Для кого:</b> {{ section.forWho }}</p>
+                    <p><b>Местоположение:</b> {{ section.address }}</p>
+                    <p><b>Формат:</b> {{ section.format }}</p>
+                    <p><b>Направление:</b> {{ section.typesSport }}</p>
+                    <p><b>Цена:</b> {{ section.price }} Руб./Мес.</p>
+                </div>
+                <div class="user-details">
+                    <strong>Ваши данные</strong>
+                    <p>Имя: {{ app.user.name }}</p>
+                    <p>Фамилия: {{ app.user.surname }}</p>
+                    <p>Email: {{ app.user.email }}</p>
+                </div>
+                <a href="{{ path('add_to_entry', {sectionId: section.id}) }}" class="submit-button">Записаться</a>
+            </div>
+            <img src="{{ asset('images/sitingman.svg') }}" alt="">
+        </div>
+    </section>
+{% endblock %}

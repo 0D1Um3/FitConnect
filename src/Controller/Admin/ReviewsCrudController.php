@@ -52,6 +52,7 @@ class ReviewsCrudController extends AbstractCrudController
         yield TextareaField::new('positive', 'Плюсы');
         yield TextareaField::new('negative', 'Минусы');
         yield TextareaField::new('textReview', 'Текст отзыва');
+        yield TextField::new('state', 'Состояние');
 
         $createdAt = DateTimeField::new('createdAt', 'Дата написания')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),

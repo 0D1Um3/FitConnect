@@ -16,10 +16,6 @@ body {
     width: 30%;
 }
 
-header{
-    position: unset;
-}
-
 header a {
     text-decoration: none;
     color: black;
@@ -42,6 +38,10 @@ header a:hover {
     background-color: #d9d9d9;
 }
 
+.scale{
+    margin-left: 75px;
+}
+
 .brand img {
     width: 45%;
 }
@@ -56,10 +56,6 @@ header a:hover {
     margin-left: 10px;
 }
 
-.scale {
-    margin-left: 75px;
-}
-
 .header-button{
     display: flex;
     gap: 25px;
@@ -72,11 +68,10 @@ header a:hover {
 
 header {
     width: 100%;
-    margin: 25px 0;
 }
 
 .site-header__wrapper {
-    margin: 0 10%;
+    margin: 25px 10%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -231,10 +226,10 @@ a.log-in {
 .dropdown-overlay {
     display: none;
     position: fixed;
-    top: 70px; /* Высота хедера */
+    top: 10vh; /* Высота хедера */
     left: 0;
     width: 100%;
-    height: calc(100% - 70px); /* Высота оверлея за вычетом высоты хедера */
+    height: calc(100% - 25px*2); /* Высота оверлея за вычетом высоты хедера */
     background: white; /* Белый фон */
     z-index: 1000;
     overflow-y: auto;
@@ -258,18 +253,20 @@ body.hidden-scroll {
     overflow: hidden;
 }
 
-.cities-list{
+.overlay-list{
     display: flex;
     gap: 20px;
+    border-top: 1px solid black;
+    margin-top: 10px;
     flex-wrap: wrap;
 }
 
-.city-item{
+.overlay-item{
     color: #656565;
     font-size: 20px;
 }
 
-.city-item:hover{
+.overlay-item:hover{
     text-decoration: underline;
     color: #2e2e2e;
 }
@@ -306,29 +303,6 @@ body.hidden-scroll {
 
 .collapse-menu a:hover {
     background-color: #c3c3c3;
-}
-
-.scroll-top-btn {
-    display: none; /* Скрыть кнопку по умолчанию */
-}
-
-
-/* Стили для оверлеев */
-.dropdown-overlay {
-    display: none;
-    position: fixed;
-    top: 70px; /* Высота хедера */
-    left: 0;
-    width: 100%;
-    height: calc(100% - 70px); /* Высота оверлея за вычетом высоты хедера */
-    background: white; /* Белый фон */
-    z-index: 100;
-    overflow-y: auto;
-}
-
-
-.scroll-top-btn {
-    display: none; /* Скрыть кнопку по умолчанию */
 }
 
 /* Полоса скроллбара */
@@ -402,10 +376,28 @@ body.hidden-scroll {
     .navigate{
         flex: 1 0 100%;
         order: 2;
+        border-top: 1px solid black;
         margin: 1rem -1rem -1rem -1rem; /* [3] */
         padding: 1rem; /* [4] */
         display: flex; /* [5] */
         justify-content: center;
+    }
+
+    .navigate a{
+        font-size: 32px;
+    }
+
+    .scroll-top-btn{
+        width: 50px;
+        height: 50px;
+    }
+
+    .slogan{
+        font-size: 32px;
+    }
+
+    .caption{
+        text-align: center;
     }
 }
 

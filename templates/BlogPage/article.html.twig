@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('styles/article.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="article-container">
+            <div class="article-title">
+                <p class="article-name">Все что вы не знали о пользе правильного питания</p>
+                <img src="{{ asset('images/articles/'~article.titleImage) }}" alt="title_image">
+            </div>
+            <div class="article-text">
+                {% set textWithImages = decodedText %}
+
+                {% for image in images %}
+                    {% set placeholder = '[image:' ~ image.id ~ ']' %}
+                    {% set imgTag = '<img src="' ~ asset('images/articles/' ~ image.photoFilename) ~ '" alt="Image">' %}
+
+                    {% set textWithImages = textWithImages|replace({(placeholder): imgTag}) %}
+                {% endfor %}
+
+                <div class="text">{{ textWithImages|raw }}</div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

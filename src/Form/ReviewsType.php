@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,10 +18,22 @@ class ReviewsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('positive', TextareaType::class)
-            ->add('negative', TextareaType::class)
-            ->add('textReview', TextareaType::class)
+            ->add('title', TextType::class,[
+                'label' => 'Заголовок',
+            ])
+            ->add('positive', TextareaType::class, [
+                'attr' => ['rows' => 5],
+                'label' => 'Плюсы',
+                'required' => false,
+            ])
+            ->add('negative', TextareaType::class, [
+                'attr' => ['rows' => 5],
+                'label' => 'Минусы',
+                'required' => false,
+            ])
+            ->add('textReview', TextareaType::class, [
+                'label' => 'Текст отзыва'
+            ])
             ->add('rating', ChoiceType::class, [
                 'choices' => [
                     '1' => 1,

@@ -15,7 +15,6 @@
 .entry-container {
     background-color: white;
     width: 380px;
-    height: 450px;
     border-radius: 10px;
     margin-left: auto;
 }
@@ -24,14 +23,36 @@
     margin: 30px 30px 0 30px;
 }
 
+.rating{
+    display: flex;
+    align-items: center;
+}
+
+
 .star-filled {
     color: #ffdd02;
-    font-size: 32px;
+    font-size: 30px;
+}
+
+.star-half {
+    color: gold;
+    font-size: 30px;
+    position: relative;
+}
+
+.star-half::after {
+    content: "★";
+    color: #424242;
+    position: absolute;
+    right: 0;
+    width: 50%;
+    overflow: hidden;
+    transform: scaleX(-1);
 }
 
 .star-empty {
     color: #424242;
-    font-size: 32px;
+    font-size: 30px;
 }
 
 .section-name {
@@ -63,7 +84,7 @@
     margin-bottom: 60px;
 }
 
-.entry-stage button {
+.entry-stage a {
     border: none;
     border-radius: 30px;
 }
@@ -81,9 +102,26 @@ button img {
 
 .entry {
     margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
     color: white;
     height: 60px;
     background-color: black;
+}
+
+.comparison{
+    background-color: #b3b3b3;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comparison img{
+    margin-right: 10px;
 }
 
 /*Плавающее меню*/
@@ -245,10 +283,6 @@ button img {
     margin-left: auto;
 }
 
-.stars{
-    display: flex;
-}
-
 .stars .text{
     margin-left: 10px;
 }
@@ -324,4 +358,46 @@ form button{
     border: none;
     color: white;
     border-radius: 40px;
+}
+
+@media screen and (min-width: 430px) and (max-width: 767px){
+
+    .desc{
+        font-size: 32px;
+    }
+
+    .int-rating, .count-reviews{
+        font-size: 32px;
+    }
+
+    .entry-stage{
+        font-size: 32px;
+    }
+
+    .star-filled, .star-empty{
+        font-size: 48px;
+    }
+
+    #reviews-rating input{
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+    }
+
+    .comparison{
+        height: 70px;
+    }
+
+    .sticky-menu{
+        font-size: 32px;
+    }
+
+    .desc-button, .map-button{
+        font-size: 40px;
+    }
+
+    .desc-text{
+        font-size: 32px;
+    }
+
 }

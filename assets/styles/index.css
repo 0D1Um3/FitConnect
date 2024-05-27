@@ -160,6 +160,20 @@ a {
 }
 
 
+@media screen and (min-width: 375px) and (max-width: 1342px){
+    .title-content img{
+        display: none;
+    }
+
+}
+
+@media screen and (min-width: 375px) and (max-width: 1024px){
+    .all-for-you-image{
+        display: none;
+    }
+
+}
+
 
 
 

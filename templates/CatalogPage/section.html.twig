@@ -19,27 +19,48 @@
                         <div class="stars">
                             <div class="rating">
                                 {% for i in 1..5 %}
-                                    {% if i <= 5 %}
+                                    {% if i <= averageRating %}
                                         <span class="star-filled">★</span>
+                                    {% elseif i <= averageRating + 0.5 %}
+                                        <span class="star-half">★</span>
                                     {% else %}
                                         <span class="star-empty">☆</span>
                                     {% endif %}
                                 {% endfor %}
                             </div>
 
-                            <div class="int-rating">5/5</div>
+                            <div class="int-rating">{{ averageRating|number_format(1) }}/5</div>
                         </div>
-                        <span class="count-reviews">10 отзывов</span>
-                        <p class="section-price">{{ section.price }} Руб./Мес.</p>
+                        <span class="count-reviews">{{ reviewCount }} отзывов</span>
+                        {% if section.itFree %}
+                            <p class="section-price">Посещение бесплатно</p>
+                        {% else %}
+                            <p class="section-price">{{ section.price }} Руб./Мес.</p>
+                        {% endif %}
                     </div>
                     <div class="entry-stage">
-                        <button class="comparison">
-                            <img src="{{ asset('images/Scales.svg') }}" alt="scale_img">
-                            В сравнение
-                        </button>
-                        <button class="entry">
-                            Записаться
-                        </button>
+                        {% if app.user %}
+                            <a href="{{ path('add_to_compare', {sectionId: section.id, redirect: app.request.uri}) }}"
+                               class="comparison">
+                                <img src="{{ asset('images/Scales.svg') }}" alt="scale_img">
+                                В сравнение
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}"
+                               class="comparison">
+                                <img src="{{ asset('images/Scales.svg') }}" alt="scale_img">
+                                В сравнение
+                            </a>
+                        {% endif %}
+                        {% if app.user %}
+                            <a href="{{ path('app_entry', {sectionId: section.id}) }}" class="entry">
+                                Записаться
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="entry">
+                                Записаться
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -80,7 +101,7 @@
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
-                                <div class="accordion-body">
+                                <div class="accordion-body desc-text">
                                     {{ section.format }}
                                 </div>
                             </div>
@@ -119,13 +140,14 @@
                             <div class="reviews-card">
                                 <div class="stage-1">
                                     <div class="reviews-info">
-                                        <p class="user-name">Анатолий Мурнаев</p>
-                                        <p class="createdAt" style="color: #8F8F8F;">20.04.2024</p>
+                                        <p class="user-name">{{ review.users.name ~ ' '~ review.users.surname }}</p>
+                                        <p class="createdAt"
+                                           style="color: #8F8F8F;">{{ review.createdAt|date('d-m-Y') }}</p>
                                     </div>
                                     <div class="stars">
                                         <div class="rating">
-                                            {% for i in review.rating %}
-                                                {% if i <= 5 %}
+                                            {% for i in 1..5 %}
+                                                {% if i <= review.rating %}
                                                     <span class="star-filled">★</span>
                                                 {% else %}
                                                     <span class="star-empty">☆</span>
@@ -136,24 +158,30 @@
                                     </div>
                                 </div>
                                 <div class="body">
-                                    <p class="reviews-header">Все очень понравилось!</p>
-                                    <span class="text-review">Присоединившись к футбольной секции Зенита, я нашел не просто команду, а настоящую футбольную семью. Профессиональные тренеры, интенсивные тренировки и поддержка сочувствующих товарищей создают неповторимую атмосферу. Здесь не просто играют в футбол, здесь живут им, и я горжусь быть частью этой захватывающей истории успеха.</span>
+                                    <p class="reviews-header">{{ review.title }}</p>
+                                    <span class="text-review">{{ review.textReview }}</span>
                                     <div class="positive-negative">
-                                        <div class="positive">
-                                            <span><img src="{{ asset('images/plus.svg') }}" alt="plus">Плюсы</span>
-                                            <div class="item">
-                                                <span>•</span>
-                                                Профессиональные тренеры
+                                        {% if review.positive %}
+                                            <div class="positive">
+                                                <span><img src="{{ asset('images/plus.svg') }}" alt="plus"> Плюсы</span>
+                                                {% for line in review.positive|split('\n') %}
+                                                    <div class="item">
+                                                        <span>•</span> {{ line }}
+                                                    </div>
+                                                {% endfor %}
                                             </div>
-                                        </div>
-                                        <div class="negative">
-                                            <span><img src="{{ asset('images/minus.svg') }}" alt="minus">Минусы</span>
-                                            <div class="item">
-                                                <span>•</span>
-                                                Только одно поле на котором могут не поместиться
-                                                все ученики
+                                        {% endif %}
+                                        {% if review.negative %}
+                                            <div class="negative">
+                                                <span><img src="{{ asset('images/minus.svg') }}"
+                                                           alt="minus"> Минусы</span>
+                                                {% for line in review.negative|split('\n') %}
+                                                    <div class="item">
+                                                        <span>•</span> {{ line }}
+                                                    </div>
+                                                {% endfor %}
                                             </div>
-                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -165,43 +193,36 @@
                     {% endif %}
                 </div>
                 {% if app.user %}
-                <div class="send-review" id="send-review">
-                    <p class="form-review-title"></p>
-                    {{ form_start(form) }}
-                    <div class="form-group">
-                        {{ form_row(form.title) }}
+                    <div class="send-review" id="send-review">
+                        <p>Написать отзыв</p>
+                        <p class="form-review-title"></p>
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.title) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.textReview) }}
+                        </div>
+                        <div class="star-rating">
+                            <label>Ваша оценка</label>
+                            {{ form_widget(form.rating) }}
+                        </div>
+                        <div class="form-positive-negative">
+                            {{ form_row(form.positive) }}
+                            {{ form_row(form.negative) }}
+                        </div>
+                        <button type="submit">Отправить</button>
+                        {{ form_end(form) }}
                     </div>
-                    <div class="form-group">
-                        {{ form_row(form.textReview) }}
-                    </div>
-                    <div class="star-rating">
-                        <label>Ваша оценка</label>
-                        {{ form_widget(form.rating) }}
-                    </div>
-                    <div class="form-positive-negative">
-                        {{ form_row(form.positive) }}
-                        {{ form_row(form.negative) }}
-                    </div>
-                    <button type="submit">Отправить</button>
-                    {{ form_end(form) }}
-                </div>
                 {% else %}
-                <div class="no-log-in">
-                    <span>Упс... Чтобы оставить отзыв нужно войти в аккаунт</span>
-                </div>
+                    <div class="no-log-in">
+                        <span>Упс... Чтобы оставить отзыв нужно войти в аккаунт</span>
+                    </div>
                 {% endif %}
-
             </div>
 
         </div>
     </section>
-    <script>
-        $(function() {
-            $('.star-rating').barrating({
-                theme: 'css-stars',
-                initialRating: {{ form.rating.vars.value }}
-            });
-        });
-    </script>
+
 
 {% endblock %}

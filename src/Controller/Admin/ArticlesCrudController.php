@@ -40,9 +40,11 @@ class ArticlesCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('typesSport', 'Вид спорта');
-        yield TextField::new('name');
-        yield TextEditorField::new('text');
-        yield ImageField::new('title_image')->setUploadDir('assets/images/');
+        yield TextField::new('name', 'Имя');
+        yield TextEditorField::new('text')->hideOnIndex();
+        yield ImageField::new('titleImage', 'Титульное изображение')
+            ->setUploadDir('assets/images/articles/')
+            ->setBasePath('images/articles/');
 
         $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),
