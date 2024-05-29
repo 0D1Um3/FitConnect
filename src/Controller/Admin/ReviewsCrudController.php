@@ -31,7 +31,7 @@ class ReviewsCrudController extends AbstractCrudController
             ->setSearchFields(['author', 'text_review', 'email', 'title', 'positive', 'negative'])
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
-
+//Создание фильтров
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
@@ -62,5 +62,4 @@ class ReviewsCrudController extends AbstractCrudController
             yield $createdAt->setFormTypeOption('disabled', true);
         }
     }
-
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\CompareSection;
 use App\Entity\User;
 use App\Repository\SectionsRepository;

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CityController extends AbstractController
 {
+    //Функция для установки текущего города пользователя
     #[Route('/set-city/{city}', name: 'set_city')]
     public function setCity(Request $request, string $city): Response
     {

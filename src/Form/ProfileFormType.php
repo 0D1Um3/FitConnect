@@ -35,7 +35,7 @@ class ProfileFormType extends AbstractType
                         'minMessage' => 'Ваш пароль должен быть не короче {{ limit }} символов',
                         'max' => 4096,
                     ]),
-//                    new PasswordStrength(),
+                    new PasswordStrength(),
                 ],
             ]);
     }

@@ -20,7 +20,6 @@ class TwigEventSubscriber implements EventSubscriberInterface
     public function __construct(
         RequestStack        $requestStack,
         Environment         $twig,
-        SectionsRepository  $sectionsRepository,
         TypeSportRepository $typeSportRepository,
         CityRepository      $cityRepository)
     {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Reviews;
 use App\Entity\Sections;
 use App\Repository\ArticlesRepository;
@@ -18,14 +17,9 @@ class HomePageController extends AbstractController
     #[Route('/', name: 'app_homepage')]
     public function index(Environment $twig, ArticlesRepository $articlesRepository, TypeSportRepository $typeSportRepository): Response
     {
-//        // Выбрать 6 случайных записей из таблицы articles
-        $randomArticles = $articlesRepository->findRandom(5);
-//
-//        // Выбрать 3 записи из таблицы typeSport с самыми большими значениями поля entries
+
+        // Выбрать 3 записи из таблицы typeSport с самыми большими значениями поля entries
         $topTypeSports = $typeSportRepository->findTopByEntries(3);
-//
-//        ['articles'=>$randomArticles,
-//            'typeSport'=>$topTypeSports,]
 
         return new Response($twig->render('MainPage/index.html.twig', [
             'topTypesSport' => $topTypeSports,
